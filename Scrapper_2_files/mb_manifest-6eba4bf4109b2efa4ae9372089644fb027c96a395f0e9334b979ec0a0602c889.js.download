@@ -1,0 +1,2534 @@
+/* ----- mb_utils ----- */
+
+
+var mb_utils = {
+
+  init: function() {
+      this._extendJquery();
+      this._extendJavascript();
+      this.initIOS7FocusBugFix();
+      this.hideEditButtonInIframe();
+    },
+
+  _extendJquery: function () {
+    // exists function returns a boolean ... use example: $('body').exists();
+    jQuery.fn.exists = function () { return this.length>0; };
+  },
+
+  _extendJavascript: function () {
+    if (!String.prototype.trim) {
+      String.prototype.trim=function() { return this.replace(/^\s+|\s+$/g, ''); };
+    }
+  },
+
+  hideEditButtonInIframe: function() {
+    if (window.location !== window.parent.location){
+      $('.mb_admin_edit_button').hide();
+    }
+  },
+
+	printThis: function ()
+	{
+		var agt = navigator.userAgent.toLowerCase();
+		if (window.print) {
+			window.print();
+		}
+		else if (agt.indexOf("mac") != -1) {
+			alert("Press 'Cmd+p' on your keyboard to print article. ");
+		}
+		else {
+			alert("Press 'Ctrl+p' on your keyboard to print article. ");
+		}
+	},
+
+	initScrollToTop: function (link) {
+		// Functionality for 'back to top' button
+		$(link).click(function(e){
+			e.preventDefault();
+			$('html, body').animate({
+				scrollTop: 0
+			}, 600);
+		});
+	},
+
+	/*
+	 * SlideToggle is jquery's expander.
+	 * .. allows a click to cause an element to expand
+	 * .. this allows an extra callback function and speed vars
+	 */
+  addSlideToggleListener: function( toClick, toSlide, andDoFn, speed ) {
+    toClick.click(function(){
+      andDoFn();
+      toSlide.slideToggle(speed);
+    });
+  },
+
+  // Handle touch vs. click events
+  touchclick: function (sel, fnc) {
+    $(sel).on('touchstart click', function(event) {
+      event.stopPropagation();
+      event.preventDefault();
+      if(event.handled !== true) {
+        fnc($(this), event);
+        event.handled = true;
+      } else {
+        return false;
+      }
+    });
+  },
+
+  initIOS7FocusBugFix: function () {
+
+    // ios up to 7 has a bug that makes fixed elements no longer fixed when a form
+    // element is focused. This is part of a workaround for that. The other part
+    // uses the fixfixed selector in the css. -JM
+    // Requires Modernizr
+    if (Modernizr.touch) {
+      $('input, select, textarea').focus(function() {
+        $('body').addClass('fixfixed');
+      });
+      $('input, select, textarea').blur(function() {
+        $('body').removeClass('fixfixed');
+      });
+    }
+  },
+
+  /*
+   * Positioning of Elements
+   * BERGEN: Currently this is only being used by the nav, why not put this in mb_nav?
+   */
+
+  /* Distance from top of document */
+  distanceFromTop: function ( element ) {
+    if ($(element).length > 0) {
+      return $(element).offset().top;
+    }
+  },
+
+  /* Distance from top of closest positioned parent */
+  distanceFromTopOfContainer: function ( element ) {
+    return $(element).position().top;
+  },
+
+	/*
+	 * Query String retrieval
+	 * updated to allow for arrays of params
+	 */
+	getParam: function(p){
+		var qd = {};
+		location.search.substr(1).split("&").forEach(function(item) {
+			var s = item.split("="),
+					k = s[0],
+					v = s[1] && decodeURIComponent(s[1]);
+			(k in qd) ? qd[k].push(v) : qd[k] = [v]
+		})
+		return qd[p];
+	},
+
+	//allows for a condensed block of text to expand and contract
+
+	/*
+	HTML structured
+	 .description.condensed
+	 	.short
+	 		= condensed_text
+	 			- if item.short_description.length > truncate_length
+	 				%a.more_or_less{href: "#"} more
+		.long
+	 		= item.short_description
+			%a.more_or_less{href: "#"} less
+	*/
+	//options: speed (int)
+	toggleText: function(e,a,options){
+		e.preventDefault();
+		var $self = $(a);
+		var $description_div = $self.parents('.description');
+		var $long = $description_div.find('.long');
+		var $short = $description_div.find('.short');
+		var options = options === undefined ? {} : options;
+		var speed = options.speed ? options.speed : 400;
+
+		if($description_div.hasClass("condensed")){
+			console.log("expand text");
+			var min_h = $short.height();
+			$short.hide();
+			$long.css("min-height", min_h);
+			$long.slideDown(speed)
+
+		} else {
+			console.log("condense text");
+			$long.slideUp(speed, function(){
+				$short.show();
+			})
+		}
+		$description_div.toggleClass("condensed");
+	},
+
+  /*
+  *   initExpandableElement - initializes the behavior of mb_expand components
+  *   1/23/2020 (nmj) rewritten to ignore [data-expand-index] in favor of sibling-based selection
+  *   '.expandable_element_link' looks for the closest parent '.mb_expand' and toggles the '.expandable_element' child
+  *   NOTE: many instances override mb_utils.  This is the defacto initExpandableElement() function (as of 2/6/2020 -nmj)
+  */
+  
+  initExpandableElement: function(){
+    
+	  $('.expandable_element_link').unbind('click').click(function(){
+	    var $el = $(this).closest('.mb_expand').find('.expandable_element');
+      var expandText = $(this).attr("data-expand-text");
+      var contractText = $(this).attr("data-contract-text");
+      if (expandText && contractText){
+        var txt = $el.is(':visible') ? expandText : contractText;
+        $(this).text(txt);
+      } else {
+  	    var doToggleText = $(this).text().indexOf('+ more') >= 0 || $(this).text().indexOf('- less') >= 0
+  	    if (doToggleText) { 
+    	    var txt = $el.is(':visible') ? '+ more' : '- less';
+    	    $(this).text(txt);
+  	    }
+      }
+	    $el.slideToggle();
+	  })
+  },
+
+	writeToFancybox: function (html_content)
+	{
+		//console.log('attempting to write to fancybox: ' + html_content);
+    $.fancybox({
+        type: "html", // not an image but html
+        content: html_content, // overrides fancybox content
+        openEffect  : 'none',
+        closeEffect : 'none',
+        margin: 0,
+        padding: 0
+    });
+	},
+
+
+	simpleFormat: function(str,wrap) {
+		str = str.replace(/\r\n?/, "\n");
+		str = $.trim(str);
+		if (str.length > 0) {
+			str = str.replace(/\n\n+/g, '</p><p>');
+			str = str.replace(/\n/g, '<br />');
+			if(wrap){
+				str = '<p>' + str + '</p>';
+			}
+		}
+		return str;
+	},
+
+  getMSEdgeVersion: function (uaString) {
+    uaString = uaString || navigator.userAgent;
+    var match = /\b(MSIE |Trident.*?rv:|Edge\/)(\d+)/.exec(uaString);
+    if (match) return parseInt(match[2])
+  },
+
+	//updated for trident and edge
+	getIEVersion: function () {
+		var agent = navigator.userAgent;
+		var reg = /MSIE\s?(\d+)(?:\.(\d+))?/i;
+		var matches = agent.match(reg);
+		if (matches != null) {
+			return { major: matches[1], minor: matches[2] };
+		}
+
+		var trident = agent.indexOf('Trident/');
+		if (trident > 0) {
+			// IE 11 => return version number
+			return {major: 11, minor: 0 }
+		}
+
+		var edge = agent.indexOf('Edge/');
+		if (edge > 0) {
+			// Edge (IE 12+) => return version number
+			return {major: 12, minor: 0 }
+		}
+
+		return { major: "-1", minor: "-1" };
+	},
+
+  // Using JS, match citation <sup> to footnote <li>
+  // usage: <sup>1</sup> will auto-link to <ol class="footnotes"><li>First footnote</li></ol>
+
+  // I had to refactor this because it was breaking old footnotes by wrapping multiple <a> tags and
+  // then also making all footnotes links, thereby obscuring the real links.
+  // basically this is now wrapping divs with id's rather than <a> with name -JM
+  linkCitationsToFootnotes: function() {
+    var footnotes = $('.wysiwyg_content ol.footnotes li');
+    if (footnotes.exists()) {
+      var citations = $('.wysiwyg_content sup').not('.math');  // exclude <sup> tags that have "math" class
+
+      $.each(citations, function() {
+        // if there is a footnote in the DOM with the same index
+        // add an <a href> and <a name> to link them up
+        // (i.e. the third footnote would match <sup>3</sup>)
+        var citation_num = parseInt($(this).text());
+        var footnoteElement = footnotes.get(citation_num - 1);
+        var footnote = null;
+        if (footnoteElement) footnote = $(footnoteElement);
+
+        if (citation_num && footnote) {
+          // citation: change <sup>1</sup> to <a class="citation" href="#footnote_1"></a>
+          $(this).wrap('<a class="citation" href="#footnote_' + citation_num + '"></a>');
+
+          // footnote: change <li>Ibid.</li> to <li class="footnote" id="footnote_3">Ibid.</li>
+          if (footnote.hasClass("footnote") == false) {
+            footnote.addClass("footnote");
+            footnote.wrapInner(function() {
+              // This used to add an <a> tag with name value, but that was causing bugs,
+              // so changed to a div with an id -JM
+              return "<div id='footnote_" + citation_num + "'></div>";
+            });
+          }
+        }
+      });
+    }
+
+		$('a.citation').click(function(e){
+			console.log('citation click');
+      e.preventDefault();
+			var href = $(this).attr("href");
+      console.log('href: ' + href);
+			var name = href.replace("#", "");
+			//var $anchor = $('a[name='+ name +']');
+			var $anchor = $('div[id='+ name +']');
+			mb_utils.slideToElement($anchor, 105);
+		});
+	},
+
+
+  // Brought from previous climate version to handle quizzes - bm
+  launch_sized_popup_window: function (desktopURL, w, h, layout, scrollbars )
+  {
+    var layout_param = "";
+    var scrollbars_param = "0";
+    if (layout != undefined) {
+      layout_param = "?layout=" + layout;
+    }
+    if (scrollbars != undefined) {
+      scrollbars_param = scrollbars;
+    }
+    //console.log('utils.launch_sized_popup_window.scrollbars_param: ' + scrollbars_param );
+    var desktop = window.open(desktopURL + layout_param, "_blank","toolbar=0, titlebar=0, menubar=0, scrollbars=" + scrollbars_param + ", resizable=yes, width=" + w + ", height=" + h);
+    self.name = "main";
+  },
+
+	// Animates to an element by ID (with offset to allow flexible positioning)
+	// RK - changed to allow pass in either id, or jquery selector
+	slideToElement: function(target, offset, go_direct) {
+		console.log('slideToElement.offset: ' + offset);
+		if(typeof(offset)==='undefined') offset = 0;
+		var $target;
+		if(typeof(target) === 'string'){
+			$target = $(target);
+		} else {
+			$target = target;
+		}
+		if(go_direct){
+			window.scrollTo(0,  $target.offset().top - offset);
+		} else {
+			$("html, body").animate({ scrollTop: $target.offset().top - offset}, 800);
+		}
+	},
+
+	// Just handles the situation where a desktop browser states that it is a touch device **cough** firefox **cough**
+	mouseCheck: function(){
+		if (!isMobile.any()){
+			console.log('mouseCheck');
+			if($('html.touchevents').length > 0){
+				//console.log("html has touch class, but not mobile. Check if mouse cookie set");
+				var has_mouse = mb_utils.readCookie("has_mouse");
+				if(has_mouse == 'yes'){
+					$('html').removeClass("touchevents").addClass("no-touchevents");
+				} else {
+					//console.log("mouse cookie not set, create listener for mouse move.");
+					$(window).one('mousemove', function(e){
+						mb_utils.createCookie("has_mouse", "yes", (365 * 5));
+						$('html').removeClass("touchevents").addClass("no-touchevents");
+					})
+				}
+			}
+		}
+	},
+
+	mobileAndTabletCheck: function() {
+		var check = false;
+		(function(a){if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino|android|ipad|playbook|silk/i.test(a)||/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(a.substr(0,4)))check = true})(navigator.userAgent||navigator.vendor||window.opera);
+		return check;
+	},
+
+	mobileCheck: function() {
+		var check = false;
+		(function(a){if(/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|mobile.+firefox|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows ce|xda|xiino/i.test(a)||/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i.test(a.substr(0,4))) check = true;})(navigator.userAgent||navigator.vendor||window.opera);
+		return check;
+	},
+
+	humanize: function(property) {
+	  return property.toString().toLowerCase()
+    .replace(/[_-]/g, ' ')
+    .replace(/(?:^|\s)\S/g, function(a) {
+      return a.toUpperCase();
+    });
+	},
+	// from https://davidwalsh.name/javascript-debounce-function
+	// Returns a function, that, as long as it continues to be invoked, will not
+	// be triggered. The function will be called after it stops being called for
+	// N milliseconds. If `immediate` is passed, trigger the function on the
+	// leading edge, instead of the trailing.
+	/* usage:
+		 var myEfficientFn = mb_utils.debounce(function() {
+		 // All the taxing stuff you do
+		 }, 250);
+
+		 window.addEventListener('resize', myEfficientFn);
+	 */
+
+	debounce: function(func, wait, immediate) {
+		var timeout;
+		return function() {
+			var context = this, args = arguments;
+			var later = function() {
+				timeout = null;
+				if (!immediate) func.apply(context, args);
+			};
+			var callNow = immediate && !timeout;
+			clearTimeout(timeout);
+			timeout = setTimeout(later, wait);
+			if (callNow) func.apply(context, args);
+		};
+	},
+
+  humanFileSize: function(bytes, si) {
+    var thresh = si ? 1000 : 1024;
+    if(Math.abs(bytes) < thresh) {
+        return bytes + ' B';
+    }
+    var units = si
+        ? ['kB','MB','GB','TB','PB','EB','ZB','YB']
+        : ['KiB','MiB','GiB','TiB','PiB','EiB','ZiB','YiB'];
+    var u = -1;
+    do {
+        bytes /= thresh;
+        ++u;
+    } while(Math.abs(bytes) >= thresh && u < units.length - 1);
+    return bytes.toFixed(1)+' '+units[u];
+  }
+
+ 	//delete when justin says it's ok
+//	handleAnchor: function(){
+//		var at = mb_utils.getParam('at');
+//		var at_hash = window.location.hash;
+//		var at_selector = at ? "#" + at : at_hash;
+//		if(at_selector){
+//			var $target = $(at_selector);
+//			//if no id, check for anchor name
+//			if($target.length == 0){
+//				$target = $('a[name=' + at_selector.slice(1) + ']');
+//			}
+//			if($target.length > 0){
+//				var offset = $('#site_nav_container').height() + 16;
+//				mb_utils.slideToElement($target, offset, true)
+//			} else {
+//				console.log('mb_utils.handleAnchor: missing div for: ' + at);
+//			}
+//		}
+//	}
+
+};
+
+/* ----- end mb_utils ----- */
+
+/* ----- Check for Mobile ----- */
+
+var isMobile = {
+  Android: function() {
+    return navigator.userAgent.match(/Android/i);
+  },
+  BlackBerry: function() {
+    return navigator.userAgent.match(/BlackBerry/i);
+  },
+  iOS: function() {
+    return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+  },
+  iPad: function() {
+    return navigator.userAgent.match(/iPad/i);
+  },
+  Opera: function() {
+    return navigator.userAgent.match(/Opera Mini/i);
+  },
+  Windows: function() {
+    return navigator.userAgent.match(/IEMobile/i);
+  },
+  any: function() {
+    //console.log("w:" +screen.width + "ua:" + navigator.userAgent + ", isIpad:" + isMobile.iPad());
+    return (screen.width <= 500) || ( isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+  }
+
+};
+
+/* ----- end Check for Mobile ----- */
+;
+/*
+ *   nav
+ *
+ *   This is the nav overlay and the menu button (mobile)
+ *
+ *   This nav essentially just adds and removes classes based on a scroll position to create a sticky nav.
+ *   The css should establish fixed position etc. based on the classes added/removed.
+ *
+ * 	Defaults to nav similar to smap/grace where scrolls past header then nav class of nav_is_fixed is added
+ *
+ * 	Options:
+ * 		navHeight: integer representing scroll offset to add remove classes*
+ *			opts: object
+ *			 style:
+ *			 	'transparent': i.e. gcc/sea level, sets add_rem_selector to '.site_area_header' and onscroll_classes to  "fixed fixed_show"
+ *			 add_rem_selector: string used in jquery selector to grab object to add/remove classes. Will override style.
+ *		   onscroll_classes: string representing class(es) to add/remove when past navHeight,
+ *										multiple classes can be added/removed by separating with a space "myClass yourClass"
+ *									 Will override style.
+ *				beforeScrollAdd: function to run before adding the classes
+ *				afterScrollAdd: function to run after adding the classes
+ *				beforeScrollRemove: function to run before adding the classes
+ *				afterScrollRemove: function to run before adding the classes
+ */
+
+var mb_nav = {
+	arrowBtn: '#site_nav_container .arrow_box',
+	lastScrollTop: 0,
+	navTitle: '.nav_item .nav_title',
+	desktopStickyTopPos: 0, // This should match the height of the desktop header -JM
+	opts: null,
+	onscroll_classes: "nav_is_fixed",
+	add_rem_selector: 'body',
+	nav_area: '.nav_area',
+	menu_open_div: '.site_header_area',
+
+	init: function (navHeight, opts) {
+		console.log("desktopStickyTopPos: " + navHeight);
+		if(navHeight) {
+			this.desktopStickyTopPos = navHeight;
+		}
+
+		if (opts && opts.style) {
+			switch (opts.style) {
+				case "transparent":
+					this.add_rem_selector = ".site_header_area";
+					this.onscroll_classes = "fixed fixed_show";
+					// this.nav_area = "#site_nav_container"; // Removing this should be ok but will want to test Climate carefully when we use this function there. -JM
+					// this.menu_open_div = '.nav_area'; // This should no longer be needed after change to GCC nav -JM
+					break;
+				case "opaque_on_scroll":
+					$(window).scroll(function(){
+						var $header = $('.site_header_area');
+						if ($(window).scrollTop() > 0){
+							$header.addClass('opaque');
+						} else {
+							$header.removeClass('opaque');
+						}
+					});
+					break;
+			}
+		}
+
+		if(opts && opts.onscroll_classes){
+			this.onscroll_classes = opts.onscroll_classes;
+		}
+
+		if(opts && opts.add_rem_selector){
+			this.add_rem_selector = opts.add_rem_selector;
+		}
+
+		if(opts){
+			this.opts = opts;
+		}
+
+		this.initListeners();
+	},
+
+	initListeners: function () {
+
+		$('a#menu_button').click(function(event){
+			event.preventDefault();
+			// Want to use this but getting some kind of z-index bug on iOS the makes the header elements disappear momentarily -JM
+			//$('#site_nav_container').fadeIn(400);
+			$(mb_nav.nav_area).show();
+			$(mb_nav.menu_open_div).addClass('menu_open');
+			$('.site_header_area').removeClass('menu_not_open');
+			$('a#menu_button').hide();
+			$('body').addClass('nav_overlay_true');
+
+		});
+
+		$('a.modal_close').click(function(event){
+			event.preventDefault();
+			//$('#site_nav_container').fadeOut(400);
+			$(mb_nav.nav_area).hide();
+			$(mb_nav.menu_open_div).removeClass('menu_open');
+			$('.site_header_area').addClass('menu_not_open');
+			$('a#menu_button').show();
+			$('body').removeClass('nav_overlay_true');
+		});
+
+		// Mobile expandable subnav
+		$(mb_nav.arrowBtn).click( function() {
+			nav.toggleSubnav(this);
+		});
+		$(mb_nav.navTitle).click( function() {
+			nav.toggleSubnav(this);
+		});
+
+		$(window).scroll(mb_nav.onScroll);
+	},
+	// Detect up scroll and set classes on the site header area
+	onScroll: function(){
+		var st = $(window).scrollTop();
+		var isScrollingUp = st < mb_nav.lastScrollTop;
+		mb_nav.lastScrollTop = st;
+
+		// This will make the header fully sticky
+		if ($(window).scrollTop() > mb_nav.desktopStickyTopPos) {
+			if(mb_nav.opts && mb_nav.opts.beforeScrollAdd){
+				mb_nav.opts.beforeScrollAdd();
+			}
+			$(mb_nav.add_rem_selector).addClass(mb_nav.onscroll_classes);
+
+			if(mb_nav.opts && mb_nav.opts.afterScrollAdd){
+				mb_nav.opts.afterScrollAdd();
+			}
+		} else {
+			if(mb_nav.opts && mb_nav.opts.beforeScrollRemove){
+				mb_nav.opts.beforeScrollRemove();
+			}
+			$(mb_nav.add_rem_selector).removeClass(mb_nav.onscroll_classes);
+			if(mb_nav.opts && mb_nav.opts.afterScrollRemove){
+				mb_nav.opts.afterScrollRemove();
+			}
+		}
+	},
+
+	toggleSubnav: function (clickedElement) {
+		if ($('.subnav li').css('display')!='inline-block') {
+			var thisSubnav = $(clickedElement).parent().find('.global_subnav_container');
+			var thisArrow = $(clickedElement).parent().find('.arrow_box');
+			$(thisSubnav).slideToggle(300);
+			$(thisArrow).toggleClass('reverse'); // turn the arrow upside down
+		}
+	},
+
+};
+
+var mb_meganav = {
+  init: function() {
+    console.log("All 'mb_meganav.js' functionality has been moved to React template. You can now remove mb_meganav.init if the page is using React meganav.");
+
+    // mb_meganav.initListeners();
+	},
+
+// 	initListeners: function() {
+// 		$('.no-touchevents ul.nav > li').on('mouseenter', function(e){
+// 			var isDesktopNav = mb_meganav.isDesktop();
+
+// 			if(isDesktopNav) { // Don't fire on mobile nav -JM
+// 				mb_meganav.openMegaNav(this);
+// 			}
+// 		});
+
+// 		$('.touchevents ul.nav > li').on('click', function(e){   //touchstart/touchend were firing too inconsistently
+// 			var isDesktopNav = mb_meganav.isDesktop();
+
+// 			if(isDesktopNav) { 
+// 				//first off prevent any normal behaviors
+// 				e.preventDefault();
+// 				e.stopPropagation();
+// 				//if the meganav is open
+// 				var $a_clicked = mb_meganav.getMeAnHref(e);
+// 				if($(e.originalEvent.currentTarget).hasClass('expanded')){
+// 					var $is_open = $a_clicked.hasClass('pressed');
+// 					if($a_clicked){ // check if there is an url
+// 						if(!$is_open) { // if current item is not open
+// 							$('a.main_nav_item.pressed').removeClass('pressed');
+// 							$a_clicked.addClass('pressed');
+// 						} else {
+// 							// go to link if dropdown is open
+// 							window.location = $a_clicked.attr('href');
+// 						}
+// 					}
+// 				} else { //meganav not open
+// 					var expandedExists = $('ul.nav > li.expanded').length > 0;
+// 					if(expandedExists){
+// 						mb_meganav.closeMegaNav($('li.expanded')[0]);
+// 					}
+// 					if($(this).children('.global_subnav_container').length) {
+// 						mb_meganav.openMegaNav(this);
+// 					} else {
+// 						$('.page_cover').hide();
+//             if($a_clicked){
+//               $a_clicked.addClass('pressed');
+//               window.location = $a_clicked.attr('href');
+//             }
+// 					}
+// 					//(re)create listener on page_cover to close the open nav
+// 					$('.page_cover').off().on('touchstart', function(e){
+// 						mb_meganav.closeMegaNav($('li.expanded')[0]);
+// 					});
+// 				}
+// 			}
+// 		});
+
+// 		$('.no-touchevents ul.nav > li').on('mouseleave', function(e){
+// 			var isDesktopNav = mb_meganav.isDesktop();
+// 			if(isDesktopNav) {
+// 				mb_meganav.closeMegaNav(this);
+// 	  	}
+// 		});
+// 	},
+
+// 	//returns a jquery ref to a element if clicked on a or a > div/img etc
+// 	getMeAnHref: function(e){
+// 		var url,el;
+// 		url = $(e.target).attr('href');
+// 		if(url){
+// 			el = $(e.target);
+// 		} else { //if not a link, maybe it is a image/div in an a
+// 			var parental_a = $(e.target).parents('a');
+// 			if(parental_a.length > 0){
+// 				el = parental_a.eq(0);
+// 			}
+// 		}
+// 		return el;
+// 	},
+
+// 	openMegaNav: function(el){
+// 		var $thisItem = $(el);
+// 		var $meganavContainer = $thisItem.find('.meganav_container');
+// 		if($meganavContainer.length > 0){
+// 			$thisItem.addClass('expanded');
+// 			$meganavContainer.show();
+// 			$('.page_cover').show();
+// 			mb_meganav.setArrowAndNavPosition($thisItem);
+// 		}
+// 	},
+
+// 	closeMegaNav: function(el){
+// 		var $thisItem = $(el);
+// 		var $meganavContainer = $thisItem.find('.meganav_container');
+// 		$thisItem.removeClass('expanded');
+// 		$('.page_cover').hide();
+// 		$meganavContainer.hide();
+// 	},
+
+// 	setArrowAndNavPosition: function ($target) {
+// 		var offsetleft = $target.offset().left;
+// 		var outerwidth = $target.outerWidth() / 2;
+// 		var offset = offsetleft + outerwidth - 16;
+// 		var meganav_width = $('.meganav_container').width() / 2;
+// 		var no_feature_width = $('.meganav_container.no_feature').width() / 2;
+// 		var wide_width = $('.meganav_container.wide').width() / 2;
+// 		var meganav_offset = offset - meganav_width;
+// 		var no_feature_offset = offset - no_feature_width;
+// 		var wide_offset = offset - wide_width;
+// 		$('.nav_item_indicator').show();
+// 	  $('.meganav_container').css({"left": meganav_offset + 16});
+// 	  $('.meganav_container.no_feature').css({"left": no_feature_offset + 16});
+// 	  $('.meganav_container.wide').css({"left": wide_offset + 16});
+
+// 	  if ($target.find('.meganav').hasClass('columnar')){
+// 	  	var top = $('.meganav.columnar li:first-child').position().top;
+
+// 			$('.meganav.columnar li').each(function(index, value) {
+// 			    if ($(value).position().top == top) {
+// 			        $(value).addClass('top');
+// 			    }
+// 			});
+// 	  }
+
+// 	  // -- Adjust position of menu so it doesn't go off right side of screen
+
+// 	  var ww = $(window).width();
+// 	  var mw = $target.find('.meganav_container').width();
+// 	  var lt = parseInt($('.meganav_container').css('left'));
+// 	  var rt = ww - (lt + mw);
+// 	  var pastRightSide = (lt + mw) > $(window).width();
+// 	  // console.log('meganav left: ' + lt);
+// 	  // console.log('meganav right: ' + rt);
+// 	  // console.log('meganav width  ' + mw);
+// 	  // console.log('window width ' + ww);
+// 	  // console.log('pastRightSide: ' + pastRightSide);
+// 	  if (rt < 10) {
+// 	  	$('.meganav_container').css({"left": "auto", "right": "10px"});
+// 	  	$('.nav_item_indicator').css({"left": meganav_width -5-rt});
+// 	  } else {
+// 	  	$('.nav_item_indicator').css({'left': 'calc(50% - 15px)'});
+// 	  }
+	  
+// 	},
+// 	isDesktop: function() {
+// 		var styles = getComputedStyle(document.documentElement);
+// 		var bp = styles.getPropertyValue('--breakpoint_for_desktop_nav');
+// 		var desktopBreakpoint =	bp.length > 0 ? bp.replace(/\D/g,'') : 1024;
+// 		return window.outerWidth >= desktopBreakpoint;
+// 	}
+};
+/* ----- Responsive Elements library: extending mb_utils ----- */
+
+/* 
+ * For elements that require specific/custom responsive movement
+ * Register an element as responsive so it can move from its 
+ * large display to its small display container 
+ *
+ * Currently limited to a basic 2-tier (large vs small) responsive setup
+ *
+ * mb_utils.js must precede this in the .js load order
+ *
+ * USAGE:
+ *  Set up #search_module and two containers #primary_column and #secondary_column
+ *  
+ *  %script
+ *    mb_utils.initResponsiveElement('#search_module', '#large_display_container', '#small_display_container');
+ *     or
+ *    mb_utils.initResponsiveElement('#search_module', '#large_display_container', '#small_display_container',450);
+ */
+
+
+$.extend(mb_utils, {
+  initResponsiveElement: function( element, large_display_container, small_display_container, responsive_breakpoint, moveToSmallOnTouchscreen ) {  //BERGEN wants to discuss the moveToSmallOnTouchscreen variable
+    //console.log ('responsive_breakpoint:' + responsive_breakpoint);
+    if (typeof responsive_breakpoint == 'undefined') {
+      responsive_breakpoint = mb_responsive_utils.getResponsiveBreakpoint();
+    }
+    
+    //console.log('moveToSmallOnTouchscreen: ' + moveToSmallOnTouchscreen);
+    //console.log("Registering Responsive Element: " + element, large_display_container, small_display_container, responsive_breakpoint, moveToSmallOnTouchscreen);
+
+    $(window).bind("load resize", function() { 
+      //console.log("Moving Responsive Element: " + element, large_display_container, small_display_container, responsive_breakpoint, moveToSmallOnTouchscreen);
+      mb_responsive_utils.moveResponsiveElements(element, large_display_container, small_display_container, responsive_breakpoint, moveToSmallOnTouchscreen);
+      //console.log("Done Moving Responsive Element: " + element);
+    });
+  } 
+});
+
+// Populate main.js with this to set a default breakpoint for your site:
+
+/* 
+ * Responsive Breakpoint
+ * Sets default breakpoint for classes which allow registering of responsive elements with 
+ *    mb_utils.initResponsiveElement('#search_module', '#secondary_column', '#primary_column');
+ * Requires mb_responsive.js
+ */
+//mb_responsive_utils.setResponsiveBreakpoint(769);
+
+var mb_responsive_utils = {
+  _responsive_breakpoint: 769, /* default */
+
+  setResponsiveBreakpoint: function ( new_breakpoint ) {
+    this._responsive_breakpoint = new_breakpoint;
+  },
+  getResponsiveBreakpoint: function (  ) {
+    return this._responsive_breakpoint;
+  },
+
+  moveResponsiveElements: function ( element, large_display_container, small_display_container, responsiveBreakpoint, moveToSmallOnTouchscreen ) {
+    var isSmall = $(window).width() < this._responsive_breakpoint;
+    //console.log("window width: " + $(window).width() + " is small? " + isSmall);
+    var target_container = isSmall ? small_display_container : large_display_container;
+    if (moveToSmallOnTouchscreen == true && $('html').hasClass('touch')) {
+      //console.log('do moveToSmallOnTouchscreen: ', element, small_display_container);
+      mb_responsive_utils._moveElementIfNecessary(element, small_display_container);
+    } else {
+      //console.log('dont moveToSmallOnTouchscreen', element, target_container);
+      mb_responsive_utils._moveElementIfNecessary(element, target_container);
+    }
+    
+  },    
+  _moveElementIfNecessary: function ( element, targetContainer ) {
+    if ($(targetContainer).attr('id')  != undefined && $(element).parent().attr('id') != undefined) {
+      if ($(targetContainer).attr('id') != $(element).parent().attr('id')) { 
+        console.log("Moving Responsive Element: " + element + " from #" + $(element).parent().attr('id') + " to " + targetContainer);
+        $(element).prependTo(targetContainer);
+      }
+    }
+  }
+};
+/* ----- Cookie Management Library: extending mb_utils ----- */
+
+
+$.extend(mb_utils, {
+
+	// incorporating "all cookies must be secure" on sealevel. - bm
+	createCookie: function(name,value,days,secure) {
+		console.log ("mb_utils.createCookie: " + name, value, days, secure);
+		if (days) {
+			var date = new Date();
+			date.setTime(date.getTime()+(days*24*60*60*1000));
+			var expires_string = "; expires="+date.toGMTString();
+		}
+		else var expires_string = "";
+
+		var is_secure = typeof secure !== 'undefined' ? secure : true;
+		if (is_secure == true && window.location.protocol == 'https:') {
+			var secure_string = "; secure";
+		}
+		else var secure_string = "";
+
+		document.cookie = name+'='+value+expires_string+secure_string+'; path=/';
+	},
+
+	readCookie: function(name) {
+		var nameEQ = name + "=";
+		var ca = document.cookie.split(';');
+		for(var i=0;i < ca.length;i++) {
+			var c = ca[i];
+			while (c.charAt(0)==' ') c = c.substring(1,c.length);
+			if (c.indexOf(nameEQ) == 0) {
+				console.log ("mb_utils.readCookie: " + name, c.substring(nameEQ.length,c.length));
+				return c.substring(nameEQ.length,c.length);
+			}
+		}
+		return null;
+	},
+
+	eraseCookie: function(name) {
+		mb_utils.createCookie(name,"",-1);
+	}
+
+});
+
+
+
+/*
+ * ----- Base64 for encoding----- 
+ *
+ * Usage: 
+ *    mb_utils.createCookie("city", Base64.encode(locationString), 30);
+ */
+
+var Base64 = {
+	// private property
+	_keyStr : "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
+
+	// public method for encoding
+	encode : function (input) {
+		var output = "";
+		var chr1, chr2, chr3, enc1, enc2, enc3, enc4;
+		var i = 0;
+
+		input = Base64._utf8_encode(input);
+
+		while (i < input.length) {
+
+			chr1 = input.charCodeAt(i++);
+			chr2 = input.charCodeAt(i++);
+			chr3 = input.charCodeAt(i++);
+
+			enc1 = chr1 >> 2;
+			enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);
+			enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);
+			enc4 = chr3 & 63;
+
+			if (isNaN(chr2)) {
+				enc3 = enc4 = 64;
+			} else if (isNaN(chr3)) {
+				enc4 = 64;
+			}
+
+			output = output +
+					Base64._keyStr.charAt(enc1) + Base64._keyStr.charAt(enc2) +
+					Base64._keyStr.charAt(enc3) + Base64._keyStr.charAt(enc4);
+
+		}
+
+		return output;
+	},
+
+	// public method for decoding
+	decode : function (input) {
+		var output = "";
+		var chr1, chr2, chr3;
+		var enc1, enc2, enc3, enc4;
+		var i = 0;
+
+		input = input.replace(/[^A-Za-z0-9\+\/\=]/g, "");
+
+		while (i < input.length) {
+
+			enc1 = Base64._keyStr.indexOf(input.charAt(i++));
+			enc2 = Base64._keyStr.indexOf(input.charAt(i++));
+			enc3 = Base64._keyStr.indexOf(input.charAt(i++));
+			enc4 = Base64._keyStr.indexOf(input.charAt(i++));
+
+			chr1 = (enc1 << 2) | (enc2 >> 4);
+			chr2 = ((enc2 & 15) << 4) | (enc3 >> 2);
+			chr3 = ((enc3 & 3) << 6) | enc4;
+
+			output = output + String.fromCharCode(chr1);
+
+			if (enc3 != 64) {
+				output = output + String.fromCharCode(chr2);
+			}
+			if (enc4 != 64) {
+				output = output + String.fromCharCode(chr3);
+			}
+
+		}
+
+		output = Base64._utf8_decode(output);
+
+		return output;
+
+	},
+
+	// private method for UTF-8 encoding
+	_utf8_encode : function (string) {
+		string = string.replace(/\r\n/g,"\n");
+		var utftext = "";
+
+		for (var n = 0; n < string.length; n++) {
+
+			var c = string.charCodeAt(n);
+
+			if (c < 128) {
+				utftext += String.fromCharCode(c);
+			}
+			else if((c > 127) && (c < 2048)) {
+				utftext += String.fromCharCode((c >> 6) | 192);
+				utftext += String.fromCharCode((c & 63) | 128);
+			}
+			else {
+				utftext += String.fromCharCode((c >> 12) | 224);
+				utftext += String.fromCharCode(((c >> 6) & 63) | 128);
+				utftext += String.fromCharCode((c & 63) | 128);
+			}
+
+		}
+
+		return utftext;
+	},
+
+	// private method for UTF-8 decoding
+	_utf8_decode : function (utftext) {
+		var string = "";
+		var i = 0;
+		var c = c1 = c2 = 0;
+
+		while ( i < utftext.length ) {
+
+			c = utftext.charCodeAt(i);
+
+			if (c < 128) {
+				string += String.fromCharCode(c);
+				i++;
+			}
+			else if((c > 191) && (c < 224)) {
+				c2 = utftext.charCodeAt(i+1);
+				string += String.fromCharCode(((c & 31) << 6) | (c2 & 63));
+				i += 2;
+			}
+			else {
+				c2 = utftext.charCodeAt(i+1);
+				c3 = utftext.charCodeAt(i+2);
+				string += String.fromCharCode(((c & 15) << 12) | ((c2 & 63) << 6) | (c3 & 63));
+				i += 3;
+			}
+
+		}
+		return string;
+	}
+};
+/* ----- Base64 for encoding----- */
+;
+/* ----- mb_responsive_table ----- */
+/**
+ * Wraps table in <div class="table_wrapper">
+ * Sets listener for resize
+ * If its container becomes less wide than the table, adds a scrollbar to the container div
+ * Relies on .has_scroll SCSS in app/assets/stylesheets/public/partials/_tables.scss
+ */
+    
+var mb_responsive_tables = {
+  
+  init: function () {
+     
+    // Check all tables. You may need to be more restrictive. 
+    $('.wysiwyg_content table, .extra_wide_content').each(function() {
+      var $element = $(this);
+      // Create the wrapper $element
+      var scrollWrapper = $('<div />', {
+          'class': 'table_wrapper',
+          'html': '<div />' // The inner div is needed for styling
+      }).insertBefore($element);
+      // Store a reference to the wrapper $element
+      $element.data('scrollWrapper', scrollWrapper);
+      // Move the scrollable $element inside the wrapper $element
+      $element.appendTo(scrollWrapper.find('div'));
+      // Check if the $element is wider than its parent and thus needs to be scrollable
+      if ($element.outerWidth() > $element.parent().outerWidth()) {
+          $element.data('scrollWrapper').addClass('has-scroll');
+      }
+      if($element.find('tr.expandable_element').length > 0){
+        $element.parents('.table_wrapper').parent().addClass('expandable_table_wrapper')
+      }
+      // When the viewport size is changed, check again if the $element needs to be scrollable
+      $(window).on('resize orientationchange', function() {
+          if ($element.outerWidth() > $element.parent().outerWidth()) {
+              $element.data('scrollWrapper').addClass('has-scroll');
+          } else {
+              $element.data('scrollWrapper').removeClass('has-scroll');
+          }
+      });
+    });
+
+  }
+}
+
+/* ----- end mb_responsive_tables ----- */
+;
+
+(function( $ ){
+
+	/**
+	 * The plugin namespace, ie for $('.selector').myPluginName(options)
+	 *
+	 * Also the id for storing the object state via $('.selector').data()
+	 */
+	var PLUGIN_NS = 'more_items';
+
+	/*###################################################################################
+	 * PLUGIN BRAINS
+	 * Template From: https://gist.github.com/Club15CC/1300890
+	 * INSTRUCTIONS:
+	 *
+	 * To init, call...
+	 * $('selector').more_items({options})
+	 * i.e. $('ul.articles.list_view').more_items({"url": "/more_news", "params": {search: search, date: date, category: category} });
+	 *
+	 * This will bind a click listener to the button that is passed in button: jquery selector (or defaulted to $('.more_button .button') which will call
+	 * $('selector').more_items('getMoreItemsAndAppend')
+	 *
+	 * If you need to change the build html  (which you probably do) you can create a fn and call like:
+	 *  var build_item_fn = function(item){
+	 *   ... bunch of html ...
+	 *  }
+	 * $('ul.articles.list_view').more_items({"url": "/api/v1/youtube_items", "build_item_fn": build_item_fn });
+	 *
+	 * If you need to pass in additional query params for some reason you can call the plugin and pass in params
+	 * i.e. $('ul.list_view').more_items('getMoreItemsAndAppend', {foo: "bar"})
+	 *
+	 * FYI:
+	 * The scope, ie "this", **is the object itself**.  The jQuery match is stored
+	 * in the property this.$T.  In general this value should be returned to allow
+	 * for jQuery chaining by the user.
+	 *
+	 * Methods which begin with underscore are private and not
+	 * publicly accessible.
+	 *
+	 *###################################################################################*/
+
+	var Plugin = function ( target, options )
+	{
+		this.$T = $(target);
+		this.options= $.extend(
+				true,               // deep extend
+				{
+					page_number: 0,
+					url: '',
+					button: $('.more_button .button'),
+					entry_selector: target.children('li:last'),
+					build_item_fn: Plugin.prototype.buildItem,
+					more_fn: 'getMoreItemsAndAppend'
+				},
+				options
+		);
+		this._init( target, this.options );
+
+
+		/** #### PROPERTIES #### */
+		// Here rather than below in Plugin.prototype.myProp and in _init() as this way is DRY-er
+		//		this._testProp = 'testProp!';     // Private property declaration, underscore optional
+		/** #### CONSTANTS #### */
+		//	Plugin.MY_CONSTANT = 'value';
+
+		return this;
+
+	};
+
+
+
+	/** #### INITIALISER #### */
+	Plugin.prototype._init = function ( target, options ){
+		options.button.on("click", function(event){
+			event.preventDefault();
+			$(target).more_items(options.more_fn);
+		});
+	};
+
+	/** #### PUBLIC API (see notes) #### */
+	Plugin.prototype.getMoreItemsAndAppend = function (params){
+		//console.log('inside getMoreItemsAndAppend!');
+		$('.loading').show();
+		this.options.button.hide();
+		this._getMore(params[0]); //passed in as array
+		return this.$T;        // support jQuery chaining
+	};
+
+	Plugin.prototype.exposeNextPage = function(){
+		//console.log('MORE_ITEMS: exposeNextPage');
+		this.options.page_number += 1;
+		this.$T.find('.page_' + this.options.page_number).show();
+		//check to see if there is a next page
+		var nextPage = this.options.page_number + 1
+		if (this.$T.find('.page_' + nextPage).length == 0){
+			this.options.button.hide();
+		}
+	};
+
+	Plugin.prototype.emptyAndReload = function(params){
+		this.$T.empty();
+		$('.loading').show();
+		this.options.button.hide();
+		if(this.options.zero_based){   //always adds 1 at start of _getMore
+			this.options.page_number = -1;
+		} else {
+			this.options.page_number = 0;
+		}
+		this.options.params = params[0]; //reset params
+		this._getMore();
+	}
+
+	Plugin.prototype._getMore = function (params){
+		var self = this;
+		//if items on load, load 0 and increment after
+		if (!self.options.get_items_on_load) {
+			self.options.page_number += 1;
+		}
+		//solr search uses a different name for the page idea.
+		var page_param = {};
+		if(this.options.page_key){
+			page_param[this.options.page_key] = this.options.page_number;
+		} else {
+			page_param["page"] = this.options.page_number;
+		}
+		var query_params = $.extend(params, page_param, this.options.params);
+		var button = this.options.button;
+		$.getJSON(this.options.url, query_params)
+				.done(function(data) {
+					//console.log( "ajax request success" );
+					var html = "";
+					if(self.options.before_fn){
+						self.options.before_fn();
+					}
+					for(var i = 0; i < data.items.length; i++){
+						html +=  self.options.build_item_fn(data.items[i]);
+					}
+					if (html != ""){
+						if(self.options.get_items_on_load && self.options.page_number == 0){  //otherwise no li present and puts
+							self.$T.append(html);
+						} else {
+							self.options.entry_selector.after(html);
+						}
+						self.options.entry_selector = self.$T.children('li:last')
+					} else {
+						if(self.options.get_items_on_load && self.options.page_number == 0) { //only effect ajax load search/filter type
+							self.$T.append("<p>There are no items matching this criteria.</p>")
+						}
+					}
+					if(data.error_message){
+						self.options.entry_selector.after("<hr><div class='error'>"+ data.error_message + "</div>");
+					}
+					$('.loading').hide();
+					if(data.more && data.more == true){
+						button.show();
+					}
+					if (self.options.get_items_on_load) {
+						self.options.page_number += 1;
+					}
+
+					if(self.options.after_fn){
+						self.options.after_fn();
+					}
+				})
+				.fail(function(jqxhr, textStatus, error) {
+					var err = textStatus + ", " + error;
+					console.log( "ajax request failed: " + err );
+				});
+	}
+
+
+	Plugin.prototype.buildItem = function (data){
+		var target = data.target ? data.target : "_blank";
+		var html = "<li class=\"slide\">";
+		html +=   "<a href=\"" + data.url.replace('"','\"') + "\" target=\"" + target + "\">";
+		html +=       "<div class=\"image_and_description_container\">";
+		html +=       "<div class=\"rollover_description\">" + data.description;
+		html +=         "<div class=\"overlay_arrow\">";
+		html +=           "<img alt=\"more arrow\" src=\"/assets/overlay-arrow.png\">";
+		html +=         "<\/div>";
+		html +=       "<\/div>";
+		html +=       "<div class=\"img\">";
+		html +=					"<img alt=\"" + data.title.replace('"','\"').replace(/(<([^>]+)>)/ig,"") + "\" ";
+		html +=           "class=\"thumb\" src=\"" + data.thumb + "\"><\/div>";
+		html +=         "<div class=\"bottom_gradient\">";
+		html +=           "<div>";
+		html +=            "<h3>" + data.title + "<\/h3>";
+		html +=           "<\/div>";
+		html +=         "<\/div>";
+		html +=       "<\/div>";
+		html +=       "<div class=\"list_text_content\">";
+		html +=         "<div class=\"content_title\">";
+		html +=           data.title;
+		html +=         "<\/div>";
+		html +=         "<div class=\"article_teaser_body\">";
+		html +=           data.description;
+		html +=         "<\/div>";
+		html +=       "<\/div>";
+		html +=     "<\/a>";
+		html += "<\/li>";
+		return html;
+	}
+
+
+	/*###################################################################################
+	 * JQUERY HOOK
+	 ###################################################################################*/
+
+	/**
+	 * Generic jQuery plugin instantiation method call logic
+	 *
+	 * Method options are stored via jQuery's data() method in the relevant element(s)
+	 * Notice, myActionMethod mustn't start with an underscore (_) as this is used to
+	 * indicate private methods on the PLUGIN class.
+	 */
+	$.fn[ PLUGIN_NS ] = function( methodOrOptions )
+	{
+		if (!$(this).length) {
+			return $(this);
+		}
+		var instance = $(this).data(PLUGIN_NS);
+
+		// CASE: action method (public method on PLUGIN class)
+		if ( instance &&
+				methodOrOptions.indexOf('_') != 0 &&
+				instance[ methodOrOptions ] &&
+				typeof( instance[ methodOrOptions ] ) == 'function' ) {
+
+			return instance[ methodOrOptions ]( Array.prototype.slice.call( arguments, 1 ) );
+
+
+			// CASE: argument is options object or empty = initialise
+		} else if ( typeof methodOrOptions === 'object' || ! methodOrOptions ) {
+
+			instance = new Plugin( $(this), methodOrOptions );    // ok to overwrite if this is a re-init
+			$(this).data( PLUGIN_NS, instance );
+			return $(this);
+
+			// CASE: method called before init
+		} else if ( !instance ) {
+			$.error( 'Plugin must be initialised before using method: ' + methodOrOptions );
+
+			// CASE: invalid method
+		} else if ( methodOrOptions.indexOf('_') == 0 ) {
+			$.error( 'Method ' +  methodOrOptions + ' is private!' );
+		} else {
+			$.error( 'Method ' +  methodOrOptions + ' does not exist.' );
+		}
+	};
+
+
+
+})(jQuery);
+mb_sharelines = {
+	initted: false,
+	fb_app_id: null,
+	init: function(fb_app_id){
+		this.fb_app_id = fb_app_id;
+		if(!this.initted){
+			console.log('sharelines initted.');
+			this.getPartnerScripts();
+			this.initListeners();
+			this.initted = true;
+		}
+		this.addClassesToAttachedSharelines();
+	},
+
+	initListeners: function(){
+		$('.selected').click(function(e){
+			mb_sharelines.shareMessage(this,e);
+		})
+
+		$('.selector').click(function(e){
+			console.log('selector clicked');
+			$(this).parents('.shareline').find('.share_options').toggle();
+		})
+
+		$('.share_options *').click(function(e){
+			mb_sharelines.shareMessage(this, e);
+			var klass =  $(this).attr('class').replace('share_btn', '');
+			console.log('selected ', klass );
+			$(this).parents('.shareline').find('.selected').attr('class', 'selected ' + klass )
+			$(this).parents('.shareline').find('.share_options').hide();
+		})
+	},
+
+	addClassesToAttachedSharelines: function() {
+		// If Sharelines are attached (directly or with single <br>) 
+		// add classes to adjust margins/styles -JM
+		var s = '.shareline';
+		var bs = 'bottom_attached_sl';
+		var ts = 'top_attached_sl';
+		var $bottom1 = $(s).next(s);
+		var $bottom2 = $(s).next('br').next(s);
+		var $top1 = $(s).prev(s);
+		var $top2 = $(s).prev('br').prev(s);
+		$bottom1.addClass(bs);
+		$bottom2.addClass(bs);
+		$top1.addClass(ts);
+		$top2.addClass(ts);
+	},
+
+	shareMessage: function(btn,e) {
+		if($(btn).hasClass('fi-social-twitter')){
+			console.log('tweet!');
+			//default click should handle sharing
+			var twitter_href = $(btn).attr('href');
+			$(btn).parents('.shareline').find('.selected').attr('href', twitter_href);
+		} else if ($(btn).hasClass('fi-social-facebook')){
+			console.log('facebook!');
+			e.preventDefault();
+			$(btn).parents('.shareline').find('.selected').attr('href', '#');
+			var text = $(btn).parents('.shareline').find('.share_text').text();
+			//var share_img = 'climate.nasa.gov/images/gcc-fb-profile.jpg';
+			if(typeof(FB) != 'undefined'){
+				FB.ui({
+					method: 'feed',
+					link: window.location.href,
+					description: text
+				}, function(response) {});
+			} else {
+				console.error('No Facebook app id, need this to share on FB');
+			}
+		} else {
+			console.log('Selected clicked but unknown state', $(btn).attr('class'));
+		}
+	},
+
+	getPartnerScripts: function(){
+		if(this.fb_app_id){
+			this.initFacebook();
+		}
+		this.initTwitter();
+	},
+
+	initTwitter: function(){
+		$.getScript("https://platform.twitter.com/widgets.js");
+	},
+
+	initFacebook: function(){
+		$.ajaxSetup({ cache: true });
+		$.getScript('//connect.facebook.net/en_US/sdk.js', function(){
+			FB.init({
+				appId: mb_sharelines.fb_app_id,
+				version: 'v2.4' // or v2.0, v2.1, v2.2, v2.3
+			});
+		});
+	}
+
+};
+var mb_document_presentation = {
+  init: function(){
+    var fb_presentation_options = {
+      maxHeight: '90%',
+      openEffect  : 'fade',
+      closeEffect : 'fade',
+      mouseWheel: false,
+      theme : 'dark',
+      helpers: {
+        thumbs: {
+          width    : 75,            // thumbnail width
+          height   : 50,            // thumbnail height
+          position : 'bottom',      // 'top' or 'bottom'
+          source: function (item) {
+            return $(item.element).attr("data-thumbnail"); //get the image url for thumbnail
+          }
+        }
+      },
+      beforeLoad: function(){
+        var strVar = $(this.element).attr("data-title");
+        if (!window.location.origin) {
+          window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port: '');
+        }
+        this.title = strVar;
+
+      },
+      beforeShow: function(current){
+        var offset = $(this.element).attr("data-title") == "" ? 150 : 180
+      }
+    };
+
+    $(".fancybox_presentation").fancybox(fb_presentation_options);
+
+    $(".fancybox_presentation_launch").click(function(e){
+      e.preventDefault();
+      $(this).parents('.image_and_description_container').find('a.fancybox_presentation').click();
+    });
+
+    if ($('.fancybox_presentation').length > 0){
+      function resizePresentationsFancybox() {
+        $.fancybox.update() // Gets called automatically on FF but not webkit
+        console.log("updated width to: " + updatedWidth)
+      }
+
+      $(window).resize(function(){
+        var isFancyboxOpen = $('.fancybox-wrap').is(":visible");
+        if(isFancyboxOpen) {
+          resizePresentationsFancybox();
+        }
+      });
+    }
+  
+  }
+}
+;
+var mb_errors_detected = [];
+
+window.onerror = function(e, url, line) {
+  mb_errors_detected.push({error: e, url: url, line: line});
+  return false;
+};
+
+
+
+
+
+
+
+
+
+
+/* ~~~~~~~~~~~~~~ lib_overrides.js ~~~~~~~~~~~~~~~~~~~~
+  This file needs to be called after all lib files are loaded
+
+  To completely override the lib, create a new file in the following path:
+  	app/assets/javascripts/mbcms/lib/<name of file to override>.js
+
+  To add*, override or create a new signature using the same class and function name as lib i.e.
+ 			mb_utils.getParam =  function(str,option_a){
+ 			  //doSomethingTotallyDifferent
+ 			};
+
+ *if you are adding you should consider just adding directly to mbcms/lib
+
+	To keep original function and just add a new option you can use this pattern
+ 		mb_utils.originalGetParam = mb_utils.getParam;
+ 		mb_utils.getParam  = function(str,tweak) {
+ 			if(tweak){
+ 				alert("Do stuff");
+ 			}
+ 			return mb_utils.originalGetParam(str);
+ 		};
+
+ */
+
+;
+/*
+ *   nav
+ *
+ *   This is the nav overlay and the menu button (mobile)
+ *
+ *   This nav essentially just adds and removes classes based on a scroll position to create a sticky nav.
+ *   The css should establish fixed position etc. based on the classes added/removed.
+ *
+ * 	Defaults to nav similar to smap/grace where scrolls past header then nav class of nav_is_fixed is added
+ *
+ * 	Options:
+ * 		navHeight: integer representing scroll offset to add remove classes*
+ *			opts: object
+ *			 style:
+ *			 	'transparent': i.e. gcc/sea level, sets add_rem_selector to '.site_area_header' and onscroll_classes to  "fixed fixed_show"
+ *			 add_rem_selector: string used in jquery selector to grab object to add/remove classes. Will override style.
+ *		   onscroll_classes: string representing class(es) to add/remove when past navHeight,
+ *										multiple classes can be added/removed by separating with a space "myClass yourClass"
+ *									 Will override style.
+ *				beforeScrollAdd: function to run before adding the classes
+ *				afterScrollAdd: function to run after adding the classes
+ *				beforeScrollRemove: function to run before adding the classes
+ *				afterScrollRemove: function to run before adding the classes
+ */
+
+var nav = {
+	arrowBtn: '#site_nav_container .arrow_box',
+	lastScrollTop: 0,
+	navTitle: '.nav_item .nav_title',
+	desktopStickyTopPos: 0, // This should match the height of the desktop header -JM
+	opts: null,
+	onscroll_classes: "nav_is_fixed",
+	add_rem_selector: 'body',
+	nav_area: '.nav_area',
+	menu_open_div: '.site_header_area',
+
+	init: function (navHeight, opts) {
+		console.log("desktopStickyTopPos: " + navHeight)
+		if(navHeight) {
+			this.desktopStickyTopPos = navHeight;
+		}
+
+		if (opts && opts.style) {
+			switch (opts.style) {
+				case "transparent":
+					this.add_rem_selector = ".site_header_area";
+					this.onscroll_classes = "fixed fixed_show";
+					// this.nav_area = "#site_nav_container"; // Removing this should be ok but will want to test Climate carefully when we use this function there. -JM
+					// this.menu_open_div = '.nav_area'; // This should no longer be needed after change to GCC nav -JM
+					break;
+				case "opaque_on_scroll":
+					$(window).scroll(function(){
+						var $header = $('.site_header_area');
+						if ($(window).scrollTop() > 0){
+							$header.addClass('opaque');
+						} else {
+							$header.removeClass('opaque');
+						}
+					});
+					break;
+			}
+		}
+
+		if(opts && opts.onscroll_classes){
+			this.onscroll_classes = opts.onscroll_classes;
+		}
+
+		if(opts && opts.add_rem_selector){
+			this.add_rem_selector = opts.add_rem_selector;
+		}
+
+		if(opts){
+			this.opts = opts;
+		}
+
+		this.initListeners();
+	},
+
+	initListeners: function () {
+
+		$('a#menu_button').click(function(event){
+			event.preventDefault();
+			// Want to use this but getting some kind of z-index bug on iOS the makes the header elements disappear momentarily -JM
+			//$('#site_nav_container').fadeIn(400);
+			$(nav.nav_area).show();
+			$(nav.menu_open_div).addClass('menu_open');
+			$('a#menu_button').hide();
+			$('body').addClass('nav_overlay_true');
+
+		});
+
+		$('a.modal_close').click(function(event){
+			event.preventDefault();
+			//$('#site_nav_container').fadeOut(400);
+			$(nav.nav_area).hide();
+			$(nav.menu_open_div).removeClass('menu_open');
+			$('a#menu_button').show();
+			$('body').removeClass('nav_overlay_true');
+		});
+
+		// Failed attempts to deal with home page nav scroll bug on iOS
+		//$('body').scrollTop(100);
+		//$(document).bind("touchmove", function(e){
+		//e.preventDefault();
+		//});
+		// $(".site_nav").bind('touchstart', function (e) {
+		//       //$('body').css('position', 'fixed');
+		//       //$('body').scrollTop(100);
+		//       if ($(this).scrollTop() === 0) $(this).scrollTop(1);
+		//       //e.stopPropagation();
+		//       var scrollTop = $(this).scrollTop();
+		//       var scrollHeight = $(this).scrollHeight;
+		//       var offsetHeight = $(this).offsetHeight;
+		//       var contentHeight = scrollHeight - offsetHeight;
+		//       if (contentHeight == scrollTop) $(this).scrollTop(scrollTop-1);
+		//     });
+		// $('.site_nav').on('touchmove', function (e) {
+		//          e.stopPropagation();
+		//     });
+
+		//if ($('.site_nav').scrollTop() === 0) $('.site_nav').scrollTop(1);
+
+		// If the filter bar does not exist, allow a hideable sticky header (w/nav) -JM
+		//if(!$('.filter_bar').exists()){ // Filter bar not sticky for now.
+
+		// Mobile expandable subnav
+		$(nav.arrowBtn).click( function() {
+			nav.toggleSubnav(this);
+		});
+		$(nav.navTitle).click( function() {
+			nav.toggleSubnav(this);
+		});
+
+		$(window).scroll(nav.onScroll);
+	},
+	// Detect up scroll and set classes on the site header area
+	onScroll: function(){
+		var st = $(window).scrollTop();
+		var isScrollingUp = st < nav.lastScrollTop;
+		nav.lastScrollTop = st;
+
+		// This will make the header fully sticky
+		if ($(window).scrollTop() > nav.desktopStickyTopPos) {
+			if(nav.opts && nav.opts.beforeScrollAdd){
+				nav.opts.beforeScrollAdd();
+			}
+			$(nav.add_rem_selector).addClass(nav.onscroll_classes);
+
+			if(nav.opts && nav.opts.afterScrollAdd){
+				nav.opts.afterScrollAdd();
+			}
+		} else {
+			if(nav.opts && nav.opts.beforeScrollRemove){
+				nav.opts.beforeScrollRemove();
+			}
+			$(nav.add_rem_selector).removeClass(nav.onscroll_classes);
+			if(nav.opts && nav.opts.afterScrollRemove){
+				nav.opts.afterScrollRemove();
+			}
+		}
+	},
+
+	toggleSubnav: function (clickedElement) {
+		if ($('.subnav li').css('display')!='inline-block') {
+			var thisSubnav = $(clickedElement).parent().find('.global_subnav_container');
+			var thisArrow = $(clickedElement).parent().find('.arrow_box');
+			$(thisSubnav).slideToggle(300);
+			$(thisArrow).toggleClass('reverse'); // turn the arrow upside down
+		}
+	},
+
+
+}
+
+;
+/* 
+*   grid_list_page
+*
+*   handles the filter bar and grid/list buttons
+*
+*   - If the header changes height, there is a bug 
+*   - after resize resulting in a jump of the sticky nav
+*   - We may need a complex resize listening function for this. 
+*   *** No longer using stickiness for now ***
+*   - -JM
+*
+*/
+
+
+var grid_list_page = {
+  filterPos: "",
+  
+  init: function () {
+      this.initGridListButtons();
+      this.initFilterBar(); 
+  },
+  
+  initGridListButtons: function () {
+    $('.nav_item.list_icon').click(function(){
+			$(this).parents('section').removeClass('grid_view');
+			$(this).parents('section').addClass('list_view');
+		});
+
+		$('.nav_item.grid_icon').click(function(){
+			$(this).parents('section').removeClass('list_view');
+			$(this).parents('section').addClass('grid_view');
+		});
+  },
+  
+  initFilterBar: function () {
+    
+    if($('.filter_bar').exists()){
+    
+      // Handle expandable filter area on small screens only
+  		mb_utils.touchclick('.filter_bar header', function(obj, event){
+        if ($('.filter_bar .arrow_box').is(':visible')) {  
+          $('.filter_bar .arrow_box').toggleClass("rotate_up");
+          $('.section_search').toggle();
+        }
+      });
+      
+      //make filter bar filter submit form.
+  		$('.filter_bar .filter').change(function(){
+				$(this.form).submit();  //this way ensures any submit listeners are fired
+  		});
+      
+      // Make filter bar sticky
+      // Randy reserves the right to bring the sticky filter bar back,
+      // but we're not using it for now in favor of sticky header. -JM
+      /*
+			this.filterPos = $('.filter_bar').first().offset().top;
+			console.log('this.filterPos: ' + this.filterPos);
+			var filter_height =  $('.filter_bar').first().outerHeight(true);
+			$('.filter_bar_spanner').height(filter_height);
+			$(window).scroll(function(){
+			  //console.log('$(this).scrollTop(): ' + $(this).scrollTop() );
+				if ($(this).scrollTop() > grid_list_page.filterPos) {
+					$('.filter_bar_spanner').first().show();
+					$('.filter_bar').first().addClass('fixed');
+				} else {
+					$('.filter_bar').first().removeClass('fixed');
+					$('.filter_bar_spanner').first().hide();
+				}
+			});
+			*/
+		}
+  }
+}
+;
+var scical = {
+	key: "AIzaSyB-YdQWxXQtmjxqqnzWdfaXBox7yM7vonE",
+	url: 'https://www.googleapis.com/calendar/v3/calendars/eni.g.njoku@jpl.nasa.gov/events?maxResults=3&singleEvents=True&futureEvents=True&orderBy=startTime',
+  footer_sel: '#footer_science_calendar',
+	monthabbrs : [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec' ],
+
+	init: function(){
+		var u = scical.url + "&timeMin=" + scical.curDate() + "&key=" + this.key; // start date and our API key
+		$.get(u, scical.insertScienceCalendar);
+	},
+
+	insertScienceCalendar: function(json){
+//		console.log(json);
+
+		$.each(json.items, function(idx, val){
+			// 'date' for all-day events, 'dateTime' for events with times
+      var start_date = val.start.date == undefined ? val.start.dateTime.substring(0,10): val.start.date;
+      var end_date = val.end.date == undefined ? val.end.dateTime.substring(0,10) : val.end.date;
+
+			var dateStr = "";
+			if (start_date == end_date){
+				dateStr = scical.dateToStr(new Date(start_date));
+			} else {
+				dateStr = scical.dateToStr(new Date(start_date)) + " - " + scical.dateToStr(new Date(end_date));
+			}
+			var title = val.summary;
+			var html = "<div class='col" + (idx + 1) + "'><div class='event_date'>" + dateStr +"</div>" +
+					"<div class='event_title'>" + title + "</div>";
+			$(scical.footer_sel).append(html);
+		})
+
+	},
+
+	dateToStr: function(date){
+		return scical.monthabbrs[date.getMonth()] + " " + date.getDate() + ", " + date.getFullYear();
+	},
+
+	curDate: function(){
+		var today = new Date();
+		var dd = today.getDate();
+		var mm = today.getMonth()+1; //January is 0!
+		var yyyy = today.getFullYear();
+
+		if(dd<10) {
+		    dd='0'+dd
+		} 
+
+		if(mm<10) {
+		    mm='0'+mm
+		} 
+
+		today_formatted = yyyy+'-'+mm+'-'+dd+'T00:00:00-04:00'; 
+		// time should be today in the format: 2014-05-21T00:00:00-04:00
+		return today_formatted;
+	}
+
+};
+addthis_loader = {
+  initted: false,
+  floater: false,
+  follow: false,
+  script_src: null,
+  is_admin: null,
+  share_url: null,
+  layer_opts: {
+    'theme' : 'transparent',
+    'share' : {
+      'position' : 'left',
+      'services': "twitter,facebook,email,more",
+      'offset': {'top': '60%'}
+    },
+    'responsive': {
+      'maxWidth': '479px'
+    }
+  },
+
+  init: function(script_src, opts){
+    this.is_admin = window.location.href.search('mbcms') >= 0;
+    if(opts.floater){
+      this.floater = opts.floater;
+    }
+
+    if (opts.follow){
+      this.follow = opts.follow;
+    }
+
+    if(opts.addthis_url){
+      addthis_loader.share_url = opts.addthis_url;
+    }
+
+    this.script_src = script_src;
+    addthis_loader.initted = true;
+  },
+
+  scriptLoaded: function(data, textStatus, jqxhr){
+    if(typeof(addthis) != "undefined"){   //somehow this is occasionally still undefined even though script just loaded
+      console.log("addthis script loaded");
+      if(addthis_loader.floater){
+        addthis.layers(addthis_loader.layer_opts);
+        addthis_loader.initListeners();
+      }
+
+      if(addthis_loader.share_url){
+        addthis.update('share', 'url', addthis_loader.share_url);
+      }
+    } else {
+      window.setTimeout(function(){ addthis_loader.scriptLoaded() }, 500)
+    }
+  },
+
+  initListeners: function(){
+    addthis.addEventListener('addthis.ready', addthis_loader.addthisReady);
+  },
+
+  addthisReady: function(evt) {
+    var h = $(window).height() *.5;
+    $(window).scroll(function(){
+      var s = $(window).scrollTop();
+      if(s > h && !( $('.addthis-smartlayers').hasClass("done"))){
+        console.log("show addthis float")
+        $('.addthis-smartlayers').css({opacity: 0.0, visibility: "visible"}).animate({opacity: 1.0});
+        $('.addthis-smartlayers').addClass("done");
+      }
+    });
+  }
+}
+
+$(document).ready(function(){
+  if(addthis_loader.initted && !addthis_loader.is_admin){
+    addthis_config = {"data_track_addressbar":false};
+    $.getScript(addthis_loader.script_src, addthis_loader.scriptLoaded);
+  }
+});
+mb_parallax = {
+  init: function(){
+      //parallaxy stuffs
+		var overlay = $('.explore_overlay_page').length > 0;
+    var featurepage = $('section.feature_pages').length > 0
+    if (!mb_utils.mobileAndTabletCheck() && !overlay && featurepage){
+
+      // If we are not on a mobile device, run the parallax stuff
+
+      // Set a variable to determine which browsers we want to exclude from parallax effect
+      var ie_version =  mb_utils.getIEVersion();
+      var excludedDesktopBrowsers =((ie_version.major > 1) && (ie_version.major <= 9));
+      //var excludedDesktopBrowsers = true; // For testing non-parallax on all browsers
+
+      // Run the imageScroll function.
+      // For an excluded browser, this should only convert the data-image to an image.
+      $('.parallax_module .featured_image').each(function(k,v) {
+        $(v).imageScroll({
+          container: $(v).closest('.parallax_module'),
+          holderMinHeight: 800,
+          parallax: !excludedDesktopBrowsers
+        });
+      })
+
+
+    } else {
+
+      // If we are on mobile or a regular content page, change to normal image
+      $('.parallax_module .featured_image').each(function(k,v){
+				if(overlay){
+					$(v).siblings('.window').remove();  //could probably handle this with css, but this seemed easier given all the time spent testing mobile
+				} else {
+					$(v).siblings('.window').addClass('mobile');
+				}
+        var src = $(v).data('image');
+        $(v).append('<img src="' + src + '"></img>');
+      })
+    }
+  }
+  
+}
+
+$(document).ready(function(){
+  mb_parallax.init();
+})
+;
+/* ---------------------- main.js  ------------------------------ */
+
+
+/* ----- main ----- */
+
+
+var main = {
+	spinner_opts: {
+		lines: 8, // The number of lines to draw
+		length: 5, // The length of each line
+		width: 3, // The line thickness
+		radius: 6, // The radius of the inner circle
+		color: '#000', // #rbg or #rrggbb
+		speed: 1, // Rounds per second
+		trail: 100, // Afterglow percentage
+		shadow: false, // Whether to render a shadow
+		className: 'spinner',
+		top: "20px",
+		left: "50%"
+	},
+
+	mousePos: {x: -1, y: -1},
+	nav_search_open: false,
+  nav_search_orig_size: null,
+
+  /*
+   * keep this needed for subnavs - jh, bm 8/14/14
+   */
+  changePage: function(value, label){
+		if (label == "Website"){
+			window.open(value, "_blank");
+		}
+		window.location = value;
+	},
+
+	init: function() {
+    /**
+     * Our core utils
+     * Requires: mb_utils.js
+     */
+    mb_utils.init();
+
+    /**
+     * Our nav instance.
+     * Requires: mb_nav.js                                          gia
+     * Override with:
+     *   var overrides = { menuBtn: '.menu_button', navContainer: '#global_nav_container' }
+     *   nav.init(overrides);
+     */
+//    mb_nav.init();
+
+    /**
+     * Make touchscreen touches respond faster
+     * Requires vendor/fastclick.js
+     */
+    // FastClick.attach(document.body);
+
+    /**
+     * Init listeners that affect all pages
+     *
+     */
+		main.initListeners();
+
+		/**
+     * Init overlay nav
+     * Pass in pixel height of header area - site nav
+     * example:
+     *   nav.init($('.site_header_area').height() - $('.nav_area').height());
+     */
+
+
+    var page_nav_present = $('nav.secondary_nav').length > 0;
+    if ($('.main_feature').length > 0){
+      $('body').addClass("main_feature_present");
+    }
+
+    var banner_area_present = $('.custom_banner_container').length > 0 || $('.primary_media_feature').length > 0;
+
+    var nav_sticky_height = $('.site_header_area').outerHeight();
+    if ($('.custom_banner_container').length > 0 && $('.nwa_header').length == 0){  //nwa index nav above banner container
+        nav_sticky_height = $('.custom_banner_container').outerHeight() - $('.secondary_nav').outerHeight();
+    } else if ($('.primary_media_feature').length > 0){
+        nav_sticky_height = $('.primary_media_feature').outerHeight() - $('.secondary_nav').outerHeight();
+    }
+
+    if(typeof(nav) != "undefined"){
+      nav.init(0, {
+        style: $('body').hasClass('main_feature_present') ? "opaque_on_scroll" : ""
+      });
+    }
+
+
+
+		/**
+     * Init grid/list page
+     *
+     *  - Initing here for GCC because there are some grid/list pages
+     *  - with filters and some without.
+     *  - Not all pages will use this, but we are checking if the
+     *  - filter bar exists in the external js file.
+     *  - Due to unknowns in the future, best to go ahead and always init this for now.
+     *  - JM
+     */
+		if ($('[data-react-class="GridListPage"]').length == 0 && $('[data-react-class="GridList"]').length == 0){
+      grid_list_page.init();
+    }
+
+    /**
+		 * Responsiveness of tables entered by site admins
+		 *
+		 *  - Makes admin user-entered tables responsive
+		 */
+		mb_responsive_tables.init();
+
+
+    /**
+     * IcheckAndSetFormElementsBasedOnQueryParams (needs description)
+     *
+     */
+		this._checkAndSetFormElementsBasedOnQueryParams();
+
+    /*
+     * OPTIONAL:
+     * Sets default breakpoint for classes which allow registering of responsive elements with
+     * mb_utils.registerResponsiveElement(element, desktop_display_container, mobile_display_container, optional_responsive_breakpoint)
+     * Requires mb_responsive.js
+     */
+    //mb_responsive_utils.setResponsiveBreakpoint(769);
+
+    mb_utils.linkCitationsToFootnotes();
+
+    mb_utils.initExpandableElement();
+
+		mb_utils.mouseCheck();
+
+//		this._initIsotopeGrid();
+  },
+
+	initListeners: function(){
+
+		// main.initTabletClickers();
+
+    $('.definition_teaser_mobile').find('.definition_item').click(function(e){
+      var $def = $(this);
+      var $isCurrent = $def.hasClass('current');
+      //remove previous current def
+      var $current = $(this).parents('.definitions_container').find('.definition_item.current');
+      $current.find('.definition_viewer').slideUp(300);
+      $current.removeClass('current');
+
+      if (!$isCurrent){
+        //add current to definition
+        $def.addClass("current");
+        $(this).find('.definition_viewer').slideDown(300);
+      }
+    });
+
+    if (!mb_utils.mobileAndTabletCheck()) {
+      // Fancybox for any basic items
+      $(".fancybox").fancybox({
+        maxWidth: $(window).width() - 64,
+        fitToView: false,
+        openEffect: 'none',
+        closeEffect: 'none',
+        padding: 0
+      });
+
+      // Original version for reference temporarily -JM
+      // Fancybox for any basic items
+      // $(".fancybox").fancybox({
+      //   maxWidth: $(window).width() - 165,
+      //   maxHeight: $(window).height(),
+      //   fitToView: false,
+      //   width: '100%',
+      //   height: '100%',
+      //   autoSize: false,
+      //   openEffect: 'none',
+      //   closeEffect: 'none',
+      //   margin: 0,
+      //   padding: 0
+      // });
+    };
+
+		if (!isMobile.any()){
+      var ie_version =  mb_utils.getIEVersion();
+      var excludedDesktopBrowsers = (ie_version.major > 1 && ie_version.major < 12);
+
+      // Run the imageScroll function.
+      // For an excluded browser, this should only convert the data-image to an image.
+      $('#featured_image').imageScroll({
+        container: $('.image_of_the_day'),
+        holderMinHeight: 400,
+        holderMaxHeight: 680,
+        parallax: !excludedDesktopBrowsers
+      });
+		} else {
+
+      // If we are on mobile, append the data-image as an image -- Taken From MOON -nmj
+      // This happens on mobile -JM
+      // REFACTOR! -JM
+      var featured_image_9x16 = $('#featured_image').attr('data-mobile-image');
+      var featured_image_16x9 = $('#featured_image').attr('data-image');
+      $('#featured_image').siblings('.window').addClass('mobile');
+      var picture_el = '<picture>' +
+          '<source srcset="'+featured_image_16x9+'"media="(min-width: 600px)">' +
+          '<source srcset="'+featured_image_9x16+'"/>' +
+          '<img src="'+featured_image_9x16+'">' +
+          '</picture>'
+      $('#featured_image').append(picture_el);
+		}
+
+    // Fancybox for Videos (this one targets 'a' tag specifically)
+    // Commented out widths because these were showing up way to big
+		var video_w, margin, arrows, video_h;
+		if (isMobile.any()){
+			//video_w = $(window).width() + 20;
+			margin = [20, 20, 20, 20];
+			arrows = false;
+			//video_h = $(window).height();
+		} else {
+			//video_w = $(window).width() - 165;
+			margin = [30, 55, 30, 55];
+			arrows = true;
+			//video_h = $(window).height() - 60;
+
+		}
+    $("a.fancybox_video").fancybox({
+      //minWidth: video_w,
+      //minHeight: video_h,
+      fitToView: false,
+      autoscale: false,
+      margin: margin,
+      //width: video_w,
+      //height: video_h,
+      autoSize: false,
+      closeClick: false,
+      closeBtn: false,
+      openEffect: 'none',
+      closeEffect: 'none',
+      nextEffect: 'fade',
+      prevEffect: 'fade',
+      mouseWheel: false,
+      theme: 'mb-video',
+      arrows: arrows,
+			beforeShow: function(){
+				if(video && $(video.video_div).exists() ){
+					jwplayer(video.video_div).pause(true);
+				}
+			}
+    });
+
+    var fb_slideshow_options = {
+      padding: 10,
+      maxWidth: $(window).width() - 64,
+      openEffect  : 'fade',
+      closeEffect : 'fade',
+      mouseWheel: false,
+      theme : 'dark',
+      helpers : {
+        thumbs: {
+          // This allows for the user to specify which thumbnail to be displayed
+          source : function (item) {
+            return $(item.element).attr("data-thumbnail"); //get the image url for thumbnail
+          }
+        }
+      },
+      beforeLoad: function(){
+        // var strVar = $(this.element).attr("data-title") + ' <a href="' + $(this.element).attr('data-link') + '">More Info</a>';
+        var strVar = $(this.element).attr("data-title");
+        var more_info = $(this.element).attr("data-more-info") === undefined ? "more info" : $(this.element).attr("data-more-info");
+        var use_add_this = $(this.element).attr("data-dont-add-this") === undefined; // use "dont-add-this" => "true" to prevent adding the old share buttons
+
+        if (!window.location.origin) {
+          window.location.origin = window.location.protocol + "//" + window.location.hostname + (window.location.port ? ':' + window.location.port: '');
+        }
+
+        if (use_add_this) {
+          strVar += "<div class='addthis_toolbox addthis_default_style' " +
+            " addthis:url='" + window.location.origin + $(this.element).attr("data-link")+ "'" +
+            " addthis:title='"  + $(this.element).attr("data-title") + "'" +
+            " addthis:description='" + $(this.element).attr("data-sharedescription") + "'" +
+            ">";
+          strVar += "   <div class=\"buttons\">";
+          strVar += "     <a class=\"addthis_button_compact\">";
+          strVar += "       <img src=\"\/assets\/share.png\">";
+          strVar += "     <\/a>";
+          strVar += "     <a class=\"button\" href=\"" + $(this.element).attr('data-link') + " \" target=\"_top\">";
+          strVar +=        more_info;
+          strVar += "     <\/a>";
+          strVar += "   <\/div>";
+          strVar += "<\/div>";
+        }
+
+        this.title = strVar;
+      },
+
+      afterShow: function(){
+        var hide_arrows = $(this.element).attr("data-hide-arrows") === "true"; // use "hide-arrows" => "true" to hide carousel button
+
+        if (hide_arrows) {
+          $(".fancybox-prev").hide();
+          $(".fancybox-next").hide();
+        }
+
+        if(typeof addthis != "undefined"){
+          addthis.toolbox( $(".addthis_toolbox").get() );
+        }
+      }
+    };
+
+    $(".fancybox_slideshow").fancybox(fb_slideshow_options);
+
+    $(".fancybox_slideshow_launch").click(function(e){
+      e.preventDefault();
+      $(this).parents('.image_and_description_container').find('a.fancybox_slideshow').click();
+    });
+
+    // Fancybox for Images with information
+    $(".fancybox_info").fancybox({
+      openEffect  : 'none',
+      closeEffect : 'none',
+      closeBtn : false,
+      mouseWheel: false,
+      maxWidth: $(window).width() - 165,
+      maxHeight: $(window).height(),
+      fitToView: false,
+      width: '100%',
+      height: '100%',
+      autoSize: false,
+      theme: 'mb-info',
+      beforeLoad: function(){
+        this.title = main.constructFancyBoxInfo(this.element, true)
+      },
+      afterShow: function(){
+        $('.close_button').click(function(){
+          parent.$.fancybox.close();
+          if(typeof _atw != "undefined"){
+            _atw.clb(); //close addthis popup
+          }
+        });
+        if(typeof addthis != "undefined"){
+          addthis.toolbox(
+              $(".addthis_toolbox").get()
+          );
+        }
+
+				$('.addthis_button_compact img').on("mouseover", function(e){
+					return false;
+				});
+      },
+      padding : 0
+    });
+	},
+
+
+	scrollDown: function(event){
+		event.preventDefault();
+		var scrollTo = $(event.currentTarget).offset().top - ($('header.site_header').innerHeight() - $('section.more_bar').innerHeight());
+		$('html,body').animate({
+			scrollTop: scrollTo
+		}, 600)
+	},
+
+  initTabletClickers: function() {
+
+		// current best solution for handling tablet hover events, i think -nmj
+		if ($('html').hasClass('touchevents')) {
+
+			// prevent bubbling of events from mobile_hover_container
+			$('.mobile_hover_container').click(function(e) {
+				e.stopPropagation();
+			})
+
+			// remove .current class from all mobile_hover_sub
+			$(document).not($('.mobile_hover_container')).click(function(e) {
+				$('.mobile_hover_container .mobile_hover_sub').removeClass('current');
+			})
+
+			// add current class to mobile_hover_sub or follow link if exists
+	    $('.mobile_hover_container .mobile_hover_sub').click(function(e){
+  			e.preventDefault();
+
+	      var $item = $(this);
+	      var $isCurrent = $item.hasClass('current');
+
+	      var $current = $(this).parents('.mobile_hover_container').find('.mobile_hover_sub.current');
+
+	      if ($isCurrent){
+					window.location = $(this).find('a')[0].href;
+	      } else {
+	        $item.addClass("current");
+		      $current.removeClass('current');
+				}
+	    });
+
+		}
+
+  },
+
+	resizeFancybox: function(inner_h){
+		console.log(inner_h)
+
+		if ($('.fancybox-wrap').exists()) {
+		  var delta = 50;
+      //var wrap_margin = $('.fancybox-wrap').css('margin-top');
+  		$('.fancybox-wrap,.fancybox-inner').height(inner_h + delta );
+		}
+
+	},
+
+	constructFancyBoxInfo: function(item, is_image){
+    console.log('constructFancyBoxInfo');
+		var strVar="";
+		strVar += "<div id=\"fancybox_info\">";
+		strVar += " <div class=\"image_details\">";
+		strVar += "	 <div class=\"buttons clearfix\">";
+		strVar += "   <div class=\"close_button\"><\/div>";
+    strVar += "	   <div class=\"inner_buttons\">";
+
+		strVar += "	    <div class=\"addthis_toolbox addthis_default_style\"" +
+											"addthis:url=\"" + $(item).attr("data-link")+ "\"" +
+											"addthis:title=\""  + $(item).attr("data-title") + "\"" +
+											"addthis:description=\"" +
+                      $(item).attr("data-description").replace('"','&quot;').replace(/(<([^>]+)>)/ig,"") +
+                      "\">";
+		strVar += "		   <a class=\"addthis_button_compact\">";
+		strVar += "		    <img src=\"\/assets\/share.png\">";
+		strVar += "		   <\/a>";
+		strVar += "	    <div class=\"atclear\"><\/div>";
+    strVar += "    <\/div>";
+		strVar += "	   <a class=\"button\" href=\"" + $(item).attr('data-link') + " \" target=\"_top\">";
+		strVar += 	    "more info";
+		strVar += "	   <\/a>";
+		strVar += "	  <\/div>";
+		strVar += "	 <\/div>";
+		strVar += "	 <div class=\"text\">";
+		strVar += "	  <h2 class=\"title\">";
+		strVar +=      $(item).attr("data-title");
+		strVar += "	  <\/h2>";
+		strVar += "	  <div class=\"description\">";
+		strVar +=      $(item).attr("data-description");
+		strVar += "	  <\/div>";
+    if ($(item).attr("data-credit") != undefined) {
+		 strVar+= "	  <div class=\"image_caption\">";
+		 strVar+=      $(item).attr("data-credit");
+		 strVar+= "	  <\/div>";
+		}
+
+    strVar += "  <\/div>";
+		strVar += " <\/div>";
+		strVar += "<\/div>";
+		return strVar;
+	},
+
+
+	// Russ put this in early, we should verify it is still necessary
+	// We may want to improve upon it. It just checks for @ and . in emails
+	checkSubscribeForm: function(){
+		var email = $('#newsletter_subscribe_email').val();
+		var at_pos=email.indexOf("@");
+		var dot_pos=email.lastIndexOf(".");
+		if (at_pos<1 || dot_pos<at_pos+2 || dot_pos+2>=email.length)
+		{
+			alert("Not a valid e-mail address");
+			return false;
+		}
+
+		$.post('/newsletter_subscribe_submit', {"email": email});
+	},
+
+	_checkAndSetFormElementsBasedOnQueryParams: function(){
+		if (typeof form_params !== 'undefined') {
+			for(var i = 0; i < form_params.length; i++){
+				var param = mb_utils.getParam(form_params[i].param);
+				if (param){
+					console.log('setting '+form_params[i].selector+' to ' + param);
+					$(form_params[i].selector).val(param);
+				}
+			}
+		}
+	}
+
+}
+
+/* ----- end main ----- */
+
+/* init onReady */
+$(function() {
+  main.init();
+});
+footer = {
+	init: function(){
+		this._initIsotopeFooter();
+	},
+
+	_initIsotopeFooter: function(){
+		$('#sitemap_directory, #sitemap_directory_404').isotope({
+			// options
+			itemSelector : '.sitemap_block',
+			layoutMode: 'masonry'
+		});
+	}
+}
+
+$(document).ready(function(){
+	footer.init();
+})
+;
+css_variables = {
+	init: function(){
+		console.log('calling css_variables');
+		this._setViewportHeightVariable();
+		this._addViewportHeightResizeListener();
+		this._setHeaderHeightVariable();
+		this._addHeaderHeightResizeListener();
+	},
+
+	_setViewportHeightVariable: function() {
+		var vh = window.innerHeight;
+		console.log('set Viewport Height Variable: ' + vh);
+		document.documentElement.style.setProperty('--vh', vh+'px');
+	},
+
+	_setHeaderHeightVariable: function() {
+		var hh = document.querySelector('.site_header_area');
+		if (hh != null) {
+			hh = hh.offsetHeight;
+		} else {
+			hh = 0;
+		}
+		console.log('set Header Height Variable: ' + hh);
+		document.documentElement.style.setProperty('--header_height', hh+'px');
+	},
+
+	_addViewportHeightResizeListener: function() {
+		var self = this;
+		var resizeTimer;
+		window.addEventListener("resize", function() {
+			clearTimeout(resizeTimer);
+			resizeTimer = setTimeout(function() {
+				self._setViewportHeightVariable();
+			}, 300);
+		});
+	},
+
+	_addHeaderHeightResizeListener: function() {
+		var self = this;
+		var resizeTimer;
+		window.addEventListener("resize", function() {
+			clearTimeout(resizeTimer);
+			resizeTimer = setTimeout(function() {
+				self._setHeaderHeightVariable();
+			}, 300);
+		});
+	}
+}
+
+$(document).ready(function(){
+	css_variables.init();
+})
+;
+/* our stuff */
+
+
+
+
+
+
+
+
+
+
+;

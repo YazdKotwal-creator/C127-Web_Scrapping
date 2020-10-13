@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<!-- saved from url=(0046)https://exoplanets.nasa.gov/exoplanet-catalog/ -->
+<html class="no-flash cookies geolocation svg picture canvas video webgl srcdoc supports no-hiddenscroll no-touchevents fullscreen flexbox cssanimations flexboxlegacy no-flexboxtweener csstransforms csstransforms3d csstransitions preserve3d" style="--vh:710px; --header_height:82px;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<!-- Always force latest IE rendering engine or request Chrome Frame -->
+<meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+<script type="text/javascript" src="./Scrapper_2_files/5e33925808"></script><script src="./Scrapper_2_files/nr-1184.min.js.download"></script><script type="text/javascript" id="www-widgetapi-script" src="./Scrapper_2_files/www-widgetapi.js.download" async=""></script><script async="" src="./Scrapper_2_files/analytics.js.download"></script><script src="./Scrapper_2_files/iframe_api"></script><script async="" src="./Scrapper_2_files/analytics.js.download"></script><script src="./Scrapper_2_files/5267.js.download" async="" type="text/javascript"></script><script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","errorBeacon":"bam.nr-data.net","licenseKey":"5e33925808","applicationID":"52186567","transactionName":"JVcPR0MLWApSRU1eAQVVEhxBCFUIUkMRHBMTWg1aUjtdCFNSGg==","queueTime":0,"applicationTime":309,"agent":""}</script>
+<script type="text/javascript">(window.NREUM||(NREUM={})).loader_config={xpid:"VQcPUlZTDxAFVlBaAQQBUQ==",licenseKey:"5e33925808",applicationID:"52186567"};window.NREUM||(NREUM={}),__nr_require=function(t,e,n){function r(n){if(!e[n]){var i=e[n]={exports:{}};t[n][0].call(i.exports,function(e){var i=t[n][1][e];return r(i||e)},i,i.exports)}return e[n].exports}if("function"==typeof __nr_require)return __nr_require;for(var i=0;i<n.length;i++)r(n[i]);return r}({1:[function(t,e,n){function r(t){try{c.console&&console.log(t)}catch(e){}}var i,o=t("ee"),a=t(23),c={};try{i=localStorage.getItem("__nr_flags").split(","),console&&"function"==typeof console.log&&(c.console=!0,i.indexOf("dev")!==-1&&(c.dev=!0),i.indexOf("nr_dev")!==-1&&(c.nrDev=!0))}catch(s){}c.nrDev&&o.on("internal-error",function(t){r(t.stack)}),c.dev&&o.on("fn-err",function(t,e,n){r(n.stack)}),c.dev&&(r("NR AGENT IN DEVELOPMENT MODE"),r("flags: "+a(c,function(t,e){return t}).join(", ")))},{}],2:[function(t,e,n){function r(t,e,n,r,c){try{p?p-=1:i(c||new UncaughtException(t,e,n),!0)}catch(f){try{o("ierr",[f,s.now(),!0])}catch(d){}}return"function"==typeof u&&u.apply(this,a(arguments))}function UncaughtException(t,e,n){this.message=t||"Uncaught error with no additional information",this.sourceURL=e,this.line=n}function i(t,e){var n=e?null:s.now();o("err",[t,n])}var o=t("handle"),a=t(24),c=t("ee"),s=t("loader"),f=t("gos"),u=window.onerror,d=!1,l="nr@seenError",p=0;s.features.err=!0,t(1),window.onerror=r;try{throw new Error}catch(h){"stack"in h&&(t(9),t(8),"addEventListener"in window&&t(5),s.xhrWrappable&&t(10),d=!0)}c.on("fn-start",function(t,e,n){d&&(p+=1)}),c.on("fn-err",function(t,e,n){d&&!n[l]&&(f(n,l,function(){return!0}),this.thrown=!0,i(n))}),c.on("fn-end",function(){d&&!this.thrown&&p>0&&(p-=1)}),c.on("internal-error",function(t){o("ierr",[t,s.now(),!0])})},{}],3:[function(t,e,n){t("loader").features.ins=!0},{}],4:[function(t,e,n){function r(t){}if(window.performance&&window.performance.timing&&window.performance.getEntriesByType){var i=t("ee"),o=t("handle"),a=t(9),c=t(8),s="learResourceTimings",f="addEventListener",u="resourcetimingbufferfull",d="bstResource",l="resource",p="-start",h="-end",m="fn"+p,w="fn"+h,v="bstTimer",g="pushState",y=t("loader");y.features.stn=!0,t(7),"addEventListener"in window&&t(5);var x=NREUM.o.EV;i.on(m,function(t,e){var n=t[0];n instanceof x&&(this.bstStart=y.now())}),i.on(w,function(t,e){var n=t[0];n instanceof x&&o("bst",[n,e,this.bstStart,y.now()])}),a.on(m,function(t,e,n){this.bstStart=y.now(),this.bstType=n}),a.on(w,function(t,e){o(v,[e,this.bstStart,y.now(),this.bstType])}),c.on(m,function(){this.bstStart=y.now()}),c.on(w,function(t,e){o(v,[e,this.bstStart,y.now(),"requestAnimationFrame"])}),i.on(g+p,function(t){this.time=y.now(),this.startPath=location.pathname+location.hash}),i.on(g+h,function(t){o("bstHist",[location.pathname+location.hash,this.startPath,this.time])}),f in window.performance&&(window.performance["c"+s]?window.performance[f](u,function(t){o(d,[window.performance.getEntriesByType(l)]),window.performance["c"+s]()},!1):window.performance[f]("webkit"+u,function(t){o(d,[window.performance.getEntriesByType(l)]),window.performance["webkitC"+s]()},!1)),document[f]("scroll",r,{passive:!0}),document[f]("keypress",r,!1),document[f]("click",r,!1)}},{}],5:[function(t,e,n){function r(t){for(var e=t;e&&!e.hasOwnProperty(u);)e=Object.getPrototypeOf(e);e&&i(e)}function i(t){c.inPlace(t,[u,d],"-",o)}function o(t,e){return t[1]}var a=t("ee").get("events"),c=t("wrap-function")(a,!0),s=t("gos"),f=XMLHttpRequest,u="addEventListener",d="removeEventListener";e.exports=a,"getPrototypeOf"in Object?(r(document),r(window),r(f.prototype)):f.prototype.hasOwnProperty(u)&&(i(window),i(f.prototype)),a.on(u+"-start",function(t,e){var n=t[1],r=s(n,"nr@wrapped",function(){function t(){if("function"==typeof n.handleEvent)return n.handleEvent.apply(n,arguments)}var e={object:t,"function":n}[typeof n];return e?c(e,"fn-",null,e.name||"anonymous"):n});this.wrapped=t[1]=r}),a.on(d+"-start",function(t){t[1]=this.wrapped||t[1]})},{}],6:[function(t,e,n){function r(t,e,n){var r=t[e];"function"==typeof r&&(t[e]=function(){var t=o(arguments),e={};i.emit(n+"before-start",[t],e);var a;e[m]&&e[m].dt&&(a=e[m].dt);var c=r.apply(this,t);return i.emit(n+"start",[t,a],c),c.then(function(t){return i.emit(n+"end",[null,t],c),t},function(t){throw i.emit(n+"end",[t],c),t})})}var i=t("ee").get("fetch"),o=t(24),a=t(23);e.exports=i;var c=window,s="fetch-",f=s+"body-",u=["arrayBuffer","blob","json","text","formData"],d=c.Request,l=c.Response,p=c.fetch,h="prototype",m="nr@context";d&&l&&p&&(a(u,function(t,e){r(d[h],e,f),r(l[h],e,f)}),r(c,"fetch",s),i.on(s+"end",function(t,e){var n=this;if(e){var r=e.headers.get("content-length");null!==r&&(n.rxSize=r),i.emit(s+"done",[null,e],n)}else i.emit(s+"done",[t],n)}))},{}],7:[function(t,e,n){var r=t("ee").get("history"),i=t("wrap-function")(r);e.exports=r;var o=window.history&&window.history.constructor&&window.history.constructor.prototype,a=window.history;o&&o.pushState&&o.replaceState&&(a=o),i.inPlace(a,["pushState","replaceState"],"-")},{}],8:[function(t,e,n){var r=t("ee").get("raf"),i=t("wrap-function")(r),o="equestAnimationFrame";e.exports=r,i.inPlace(window,["r"+o,"mozR"+o,"webkitR"+o,"msR"+o],"raf-"),r.on("raf-start",function(t){t[0]=i(t[0],"fn-")})},{}],9:[function(t,e,n){function r(t,e,n){t[0]=a(t[0],"fn-",null,n)}function i(t,e,n){this.method=n,this.timerDuration=isNaN(t[1])?0:+t[1],t[0]=a(t[0],"fn-",this,n)}var o=t("ee").get("timer"),a=t("wrap-function")(o),c="setTimeout",s="setInterval",f="clearTimeout",u="-start",d="-";e.exports=o,a.inPlace(window,[c,"setImmediate"],c+d),a.inPlace(window,[s],s+d),a.inPlace(window,[f,"clearImmediate"],f+d),o.on(s+u,r),o.on(c+u,i)},{}],10:[function(t,e,n){function r(t,e){d.inPlace(e,["onreadystatechange"],"fn-",c)}function i(){var t=this,e=u.context(t);t.readyState>3&&!e.resolved&&(e.resolved=!0,u.emit("xhr-resolved",[],t)),d.inPlace(t,g,"fn-",c)}function o(t){y.push(t),h&&(b?b.then(a):w?w(a):(E=-E,R.data=E))}function a(){for(var t=0;t<y.length;t++)r([],y[t]);y.length&&(y=[])}function c(t,e){return e}function s(t,e){for(var n in t)e[n]=t[n];return e}t(5);var f=t("ee"),u=f.get("xhr"),d=t("wrap-function")(u),l=NREUM.o,p=l.XHR,h=l.MO,m=l.PR,w=l.SI,v="readystatechange",g=["onload","onerror","onabort","onloadstart","onloadend","onprogress","ontimeout"],y=[];e.exports=u;var x=window.XMLHttpRequest=function(t){var e=new p(t);try{u.emit("new-xhr",[e],e),e.addEventListener(v,i,!1)}catch(n){try{u.emit("internal-error",[n])}catch(r){}}return e};if(s(p,x),x.prototype=p.prototype,d.inPlace(x.prototype,["open","send"],"-xhr-",c),u.on("send-xhr-start",function(t,e){r(t,e),o(e)}),u.on("open-xhr-start",r),h){var b=m&&m.resolve();if(!w&&!m){var E=1,R=document.createTextNode(E);new h(a).observe(R,{characterData:!0})}}else f.on("fn-end",function(t){t[0]&&t[0].type===v||a()})},{}],11:[function(t,e,n){function r(t){if(!c(t))return null;var e=window.NREUM;if(!e.loader_config)return null;var n=(e.loader_config.accountID||"").toString()||null,r=(e.loader_config.agentID||"").toString()||null,f=(e.loader_config.trustKey||"").toString()||null;if(!n||!r)return null;var h=p.generateSpanId(),m=p.generateTraceId(),w=Date.now(),v={spanId:h,traceId:m,timestamp:w};return(t.sameOrigin||s(t)&&l())&&(v.traceContextParentHeader=i(h,m),v.traceContextStateHeader=o(h,w,n,r,f)),(t.sameOrigin&&!u()||!t.sameOrigin&&s(t)&&d())&&(v.newrelicHeader=a(h,m,w,n,r,f)),v}function i(t,e){return"00-"+e+"-"+t+"-01"}function o(t,e,n,r,i){var o=0,a="",c=1,s="",f="";return i+"@nr="+o+"-"+c+"-"+n+"-"+r+"-"+t+"-"+a+"-"+s+"-"+f+"-"+e}function a(t,e,n,r,i,o){var a="btoa"in window&&"function"==typeof window.btoa;if(!a)return null;var c={v:[0,1],d:{ty:"Browser",ac:r,ap:i,id:t,tr:e,ti:n}};return o&&r!==o&&(c.d.tk=o),btoa(JSON.stringify(c))}function c(t){return f()&&s(t)}function s(t){var e=!1,n={};if("init"in NREUM&&"distributed_tracing"in NREUM.init&&(n=NREUM.init.distributed_tracing),t.sameOrigin)e=!0;else if(n.allowed_origins instanceof Array)for(var r=0;r<n.allowed_origins.length;r++){var i=h(n.allowed_origins[r]);if(t.hostname===i.hostname&&t.protocol===i.protocol&&t.port===i.port){e=!0;break}}return e}function f(){return"init"in NREUM&&"distributed_tracing"in NREUM.init&&!!NREUM.init.distributed_tracing.enabled}function u(){return"init"in NREUM&&"distributed_tracing"in NREUM.init&&!!NREUM.init.distributed_tracing.exclude_newrelic_header}function d(){return"init"in NREUM&&"distributed_tracing"in NREUM.init&&NREUM.init.distributed_tracing.cors_use_newrelic_header!==!1}function l(){return"init"in NREUM&&"distributed_tracing"in NREUM.init&&!!NREUM.init.distributed_tracing.cors_use_tracecontext_headers}var p=t(20),h=t(13);e.exports={generateTracePayload:r,shouldGenerateTrace:c}},{}],12:[function(t,e,n){function r(t){var e=this.params,n=this.metrics;if(!this.ended){this.ended=!0;for(var r=0;r<l;r++)t.removeEventListener(d[r],this.listener,!1);e.aborted||(n.duration=a.now()-this.startTime,this.loadCaptureCalled||4!==t.readyState?null==e.status&&(e.status=0):o(this,t),n.cbTime=this.cbTime,u.emit("xhr-done",[t],t),c("xhr",[e,n,this.startTime]))}}function i(t,e){var n=s(e),r=t.params;r.host=n.hostname+":"+n.port,r.pathname=n.pathname,t.parsedOrigin=s(e),t.sameOrigin=t.parsedOrigin.sameOrigin}function o(t,e){t.params.status=e.status;var n=w(e,t.lastSize);if(n&&(t.metrics.rxSize=n),t.sameOrigin){var r=e.getResponseHeader("X-NewRelic-App-Data");r&&(t.params.cat=r.split(", ").pop())}t.loadCaptureCalled=!0}var a=t("loader");if(a.xhrWrappable){var c=t("handle"),s=t(13),f=t(11).generateTracePayload,u=t("ee"),d=["load","error","abort","timeout"],l=d.length,p=t("id"),h=t(17),m=t(16),w=t(14),v=window.XMLHttpRequest;a.features.xhr=!0,t(10),t(6),u.on("new-xhr",function(t){var e=this;e.totalCbs=0,e.called=0,e.cbTime=0,e.end=r,e.ended=!1,e.xhrGuids={},e.lastSize=null,e.loadCaptureCalled=!1,t.addEventListener("load",function(n){o(e,t)},!1),h&&(h>34||h<10)||window.opera||t.addEventListener("progress",function(t){e.lastSize=t.loaded},!1)}),u.on("open-xhr-start",function(t){this.params={method:t[0]},i(this,t[1]),this.metrics={}}),u.on("open-xhr-end",function(t,e){"loader_config"in NREUM&&"xpid"in NREUM.loader_config&&this.sameOrigin&&e.setRequestHeader("X-NewRelic-ID",NREUM.loader_config.xpid);var n=f(this.parsedOrigin);if(n){var r=!1;n.newrelicHeader&&(e.setRequestHeader("newrelic",n.newrelicHeader),r=!0),n.traceContextParentHeader&&(e.setRequestHeader("traceparent",n.traceContextParentHeader),n.traceContextStateHeader&&e.setRequestHeader("tracestate",n.traceContextStateHeader),r=!0),r&&(this.dt=n)}}),u.on("send-xhr-start",function(t,e){var n=this.metrics,r=t[0],i=this;if(n&&r){var o=m(r);o&&(n.txSize=o)}this.startTime=a.now(),this.listener=function(t){try{"abort"!==t.type||i.loadCaptureCalled||(i.params.aborted=!0),("load"!==t.type||i.called===i.totalCbs&&(i.onloadCalled||"function"!=typeof e.onload))&&i.end(e)}catch(n){try{u.emit("internal-error",[n])}catch(r){}}};for(var c=0;c<l;c++)e.addEventListener(d[c],this.listener,!1)}),u.on("xhr-cb-time",function(t,e,n){this.cbTime+=t,e?this.onloadCalled=!0:this.called+=1,this.called!==this.totalCbs||!this.onloadCalled&&"function"==typeof n.onload||this.end(n)}),u.on("xhr-load-added",function(t,e){var n=""+p(t)+!!e;this.xhrGuids&&!this.xhrGuids[n]&&(this.xhrGuids[n]=!0,this.totalCbs+=1)}),u.on("xhr-load-removed",function(t,e){var n=""+p(t)+!!e;this.xhrGuids&&this.xhrGuids[n]&&(delete this.xhrGuids[n],this.totalCbs-=1)}),u.on("addEventListener-end",function(t,e){e instanceof v&&"load"===t[0]&&u.emit("xhr-load-added",[t[1],t[2]],e)}),u.on("removeEventListener-end",function(t,e){e instanceof v&&"load"===t[0]&&u.emit("xhr-load-removed",[t[1],t[2]],e)}),u.on("fn-start",function(t,e,n){e instanceof v&&("onload"===n&&(this.onload=!0),("load"===(t[0]&&t[0].type)||this.onload)&&(this.xhrCbStart=a.now()))}),u.on("fn-end",function(t,e){this.xhrCbStart&&u.emit("xhr-cb-time",[a.now()-this.xhrCbStart,this.onload,e],e)}),u.on("fetch-before-start",function(t){function e(t,e){var n=!1;return e.newrelicHeader&&(t.set("newrelic",e.newrelicHeader),n=!0),e.traceContextParentHeader&&(t.set("traceparent",e.traceContextParentHeader),e.traceContextStateHeader&&t.set("tracestate",e.traceContextStateHeader),n=!0),n}var n,r=t[1]||{};"string"==typeof t[0]?n=t[0]:t[0]&&t[0].url&&(n=t[0].url),n&&(this.parsedOrigin=s(n),this.sameOrigin=this.parsedOrigin.sameOrigin);var i=f(this.parsedOrigin);if(i&&(i.newrelicHeader||i.traceContextParentHeader))if("string"==typeof t[0]){var o={};for(var a in r)o[a]=r[a];o.headers=new Headers(r.headers||{}),e(o.headers,i)&&(this.dt=i),t.length>1?t[1]=o:t.push(o)}else t[0]&&t[0].headers&&e(t[0].headers,i)&&(this.dt=i)})}},{}],13:[function(t,e,n){var r={};e.exports=function(t){if(t in r)return r[t];var e=document.createElement("a"),n=window.location,i={};e.href=t,i.port=e.port;var o=e.href.split("://");!i.port&&o[1]&&(i.port=o[1].split("/")[0].split("@").pop().split(":")[1]),i.port&&"0"!==i.port||(i.port="https"===o[0]?"443":"80"),i.hostname=e.hostname||n.hostname,i.pathname=e.pathname,i.protocol=o[0],"/"!==i.pathname.charAt(0)&&(i.pathname="/"+i.pathname);var a=!e.protocol||":"===e.protocol||e.protocol===n.protocol,c=e.hostname===document.domain&&e.port===n.port;return i.sameOrigin=a&&(!e.hostname||c),"/"===i.pathname&&(r[t]=i),i}},{}],14:[function(t,e,n){function r(t,e){var n=t.responseType;return"json"===n&&null!==e?e:"arraybuffer"===n||"blob"===n||"json"===n?i(t.response):"text"===n||""===n||void 0===n?i(t.responseText):void 0}var i=t(16);e.exports=r},{}],15:[function(t,e,n){function r(){}function i(t,e,n){return function(){return o(t,[f.now()].concat(c(arguments)),e?null:this,n),e?void 0:this}}var o=t("handle"),a=t(23),c=t(24),s=t("ee").get("tracer"),f=t("loader"),u=NREUM;"undefined"==typeof window.newrelic&&(newrelic=u);var d=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit","addRelease"],l="api-",p=l+"ixn-";a(d,function(t,e){u[e]=i(l+e,!0,"api")}),u.addPageAction=i(l+"addPageAction",!0),u.setCurrentRouteName=i(l+"routeName",!0),e.exports=newrelic,u.interaction=function(){return(new r).get()};var h=r.prototype={createTracer:function(t,e){var n={},r=this,i="function"==typeof e;return o(p+"tracer",[f.now(),t,n],r),function(){if(s.emit((i?"":"no-")+"fn-start",[f.now(),r,i],n),i)try{return e.apply(this,arguments)}catch(t){throw s.emit("fn-err",[arguments,this,t],n),t}finally{s.emit("fn-end",[f.now()],n)}}}};a("actionText,setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(t,e){h[e]=i(p+e)}),newrelic.noticeError=function(t,e){"string"==typeof t&&(t=new Error(t)),o("err",[t,f.now(),!1,e])}},{}],16:[function(t,e,n){e.exports=function(t){if("string"==typeof t&&t.length)return t.length;if("object"==typeof t){if("undefined"!=typeof ArrayBuffer&&t instanceof ArrayBuffer&&t.byteLength)return t.byteLength;if("undefined"!=typeof Blob&&t instanceof Blob&&t.size)return t.size;if(!("undefined"!=typeof FormData&&t instanceof FormData))try{return JSON.stringify(t).length}catch(e){return}}}},{}],17:[function(t,e,n){var r=0,i=navigator.userAgent.match(/Firefox[\/\s](\d+\.\d+)/);i&&(r=+i[1]),e.exports=r},{}],18:[function(t,e,n){function r(){return c.exists&&performance.now?Math.round(performance.now()):(o=Math.max((new Date).getTime(),o))-a}function i(){return o}var o=(new Date).getTime(),a=o,c=t(25);e.exports=r,e.exports.offset=a,e.exports.getLastTimestamp=i},{}],19:[function(t,e,n){function r(t,e){var n=t.getEntries();n.forEach(function(t){"first-paint"===t.name?d("timing",["fp",Math.floor(t.startTime)]):"first-contentful-paint"===t.name&&d("timing",["fcp",Math.floor(t.startTime)])})}function i(t,e){var n=t.getEntries();n.length>0&&d("lcp",[n[n.length-1]])}function o(t){t.getEntries().forEach(function(t){t.hadRecentInput||d("cls",[t])})}function a(t){if(t instanceof h&&!w){var e=Math.round(t.timeStamp),n={type:t.type};e<=l.now()?n.fid=l.now()-e:e>l.offset&&e<=Date.now()?(e-=l.offset,n.fid=l.now()-e):e=l.now(),w=!0,d("timing",["fi",e,n])}}function c(t){d("pageHide",[l.now(),t])}if(!("init"in NREUM&&"page_view_timing"in NREUM.init&&"enabled"in NREUM.init.page_view_timing&&NREUM.init.page_view_timing.enabled===!1)){var s,f,u,d=t("handle"),l=t("loader"),p=t(22),h=NREUM.o.EV;if("PerformanceObserver"in window&&"function"==typeof window.PerformanceObserver){s=new PerformanceObserver(r);try{s.observe({entryTypes:["paint"]})}catch(m){}f=new PerformanceObserver(i);try{f.observe({entryTypes:["largest-contentful-paint"]})}catch(m){}u=new PerformanceObserver(o);try{u.observe({type:"layout-shift",buffered:!0})}catch(m){}}if("addEventListener"in document){var w=!1,v=["click","keydown","mousedown","pointerdown","touchstart"];v.forEach(function(t){document.addEventListener(t,a,!1)})}p(c)}},{}],20:[function(t,e,n){function r(){function t(){return e?15&e[n++]:16*Math.random()|0}var e=null,n=0,r=window.crypto||window.msCrypto;r&&r.getRandomValues&&(e=r.getRandomValues(new Uint8Array(31)));for(var i,o="xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx",a="",c=0;c<o.length;c++)i=o[c],"x"===i?a+=t().toString(16):"y"===i?(i=3&t()|8,a+=i.toString(16)):a+=i;return a}function i(){return a(16)}function o(){return a(32)}function a(t){function e(){return n?15&n[r++]:16*Math.random()|0}var n=null,r=0,i=window.crypto||window.msCrypto;i&&i.getRandomValues&&Uint8Array&&(n=i.getRandomValues(new Uint8Array(31)));for(var o=[],a=0;a<t;a++)o.push(e().toString(16));return o.join("")}e.exports={generateUuid:r,generateSpanId:i,generateTraceId:o}},{}],21:[function(t,e,n){function r(t,e){if(!i)return!1;if(t!==i)return!1;if(!e)return!0;if(!o)return!1;for(var n=o.split("."),r=e.split("."),a=0;a<r.length;a++)if(r[a]!==n[a])return!1;return!0}var i=null,o=null,a=/Version\/(\S+)\s+Safari/;if(navigator.userAgent){var c=navigator.userAgent,s=c.match(a);s&&c.indexOf("Chrome")===-1&&c.indexOf("Chromium")===-1&&(i="Safari",o=s[1])}e.exports={agent:i,version:o,match:r}},{}],22:[function(t,e,n){function r(t){function e(){t(a&&document[a]?document[a]:document[i]?"hidden":"visible")}"addEventListener"in document&&o&&document.addEventListener(o,e,!1)}e.exports=r;var i,o,a;"undefined"!=typeof document.hidden?(i="hidden",o="visibilitychange",a="visibilityState"):"undefined"!=typeof document.msHidden?(i="msHidden",o="msvisibilitychange"):"undefined"!=typeof document.webkitHidden&&(i="webkitHidden",o="webkitvisibilitychange",a="webkitVisibilityState")},{}],23:[function(t,e,n){function r(t,e){var n=[],r="",o=0;for(r in t)i.call(t,r)&&(n[o]=e(r,t[r]),o+=1);return n}var i=Object.prototype.hasOwnProperty;e.exports=r},{}],24:[function(t,e,n){function r(t,e,n){e||(e=0),"undefined"==typeof n&&(n=t?t.length:0);for(var r=-1,i=n-e||0,o=Array(i<0?0:i);++r<i;)o[r]=t[e+r];return o}e.exports=r},{}],25:[function(t,e,n){e.exports={exists:"undefined"!=typeof window.performance&&window.performance.timing&&"undefined"!=typeof window.performance.timing.navigationStart}},{}],ee:[function(t,e,n){function r(){}function i(t){function e(t){return t&&t instanceof r?t:t?s(t,c,o):o()}function n(n,r,i,o){if(!l.aborted||o){t&&t(n,r,i);for(var a=e(i),c=m(n),s=c.length,f=0;f<s;f++)c[f].apply(a,r);var d=u[y[n]];return d&&d.push([x,n,r,a]),a}}function p(t,e){g[t]=m(t).concat(e)}function h(t,e){var n=g[t];if(n)for(var r=0;r<n.length;r++)n[r]===e&&n.splice(r,1)}function m(t){return g[t]||[]}function w(t){return d[t]=d[t]||i(n)}function v(t,e){f(t,function(t,n){e=e||"feature",y[n]=e,e in u||(u[e]=[])})}var g={},y={},x={on:p,addEventListener:p,removeEventListener:h,emit:n,get:w,listeners:m,context:e,buffer:v,abort:a,aborted:!1};return x}function o(){return new r}function a(){(u.api||u.feature)&&(l.aborted=!0,u=l.backlog={})}var c="nr@context",s=t("gos"),f=t(23),u={},d={},l=e.exports=i();l.backlog=u},{}],gos:[function(t,e,n){function r(t,e,n){if(i.call(t,e))return t[e];var r=n();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(t,e,{value:r,writable:!0,enumerable:!1}),r}catch(o){}return t[e]=r,r}var i=Object.prototype.hasOwnProperty;e.exports=r},{}],handle:[function(t,e,n){function r(t,e,n,r){i.buffer([t],r),i.emit(t,e,n)}var i=t("ee").get("handle");e.exports=r,r.ee=i},{}],id:[function(t,e,n){function r(t){var e=typeof t;return!t||"object"!==e&&"function"!==e?-1:t===window?0:a(t,o,function(){return i++})}var i=1,o="nr@id",a=t("gos");e.exports=r},{}],loader:[function(t,e,n){function r(){if(!b++){var t=x.info=NREUM.info,e=l.getElementsByTagName("script")[0];if(setTimeout(f.abort,3e4),!(t&&t.licenseKey&&t.applicationID&&e))return f.abort();s(g,function(e,n){t[e]||(t[e]=n)});var n=a();c("mark",["onload",n+x.offset],null,"api"),c("timing",["load",n]);var r=l.createElement("script");r.src="https://"+t.agent,e.parentNode.insertBefore(r,e)}}function i(){"complete"===l.readyState&&o()}function o(){c("mark",["domContent",a()+x.offset],null,"api")}var a=t(18),c=t("handle"),s=t(23),f=t("ee"),u=t(21),d=window,l=d.document,p="addEventListener",h="attachEvent",m=d.XMLHttpRequest,w=m&&m.prototype;NREUM.o={ST:setTimeout,SI:d.setImmediate,CT:clearTimeout,XHR:m,REQ:d.Request,EV:d.Event,PR:d.Promise,MO:d.MutationObserver};var v=""+location,g={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-1184.min.js"},y=m&&w&&w[p]&&!/CriOS/.test(navigator.userAgent),x=e.exports={offset:a.getLastTimestamp(),now:a,origin:v,features:{},xhrWrappable:y,userAgent:u};t(15),t(19),l[p]?(l[p]("DOMContentLoaded",o,!1),d[p]("load",r,!1)):(l[h]("onreadystatechange",i),d[h]("onload",r)),c("mark",["firstbyte",a.getLastTimestamp()],null,"api");var b=0},{}],"wrap-function":[function(t,e,n){function r(t){return!(t&&t instanceof Function&&t.apply&&!t[a])}var i=t("ee"),o=t(24),a="nr@original",c=Object.prototype.hasOwnProperty,s=!1;e.exports=function(t,e){function n(t,e,n,i){function nrWrapper(){var r,a,c,s;try{a=this,r=o(arguments),c="function"==typeof n?n(r,a):n||{}}catch(f){l([f,"",[r,a,i],c])}u(e+"start",[r,a,i],c);try{return s=t.apply(a,r)}catch(d){throw u(e+"err",[r,a,d],c),d}finally{u(e+"end",[r,a,s],c)}}return r(t)?t:(e||(e=""),nrWrapper[a]=t,d(t,nrWrapper),nrWrapper)}function f(t,e,i,o){i||(i="");var a,c,s,f="-"===i.charAt(0);for(s=0;s<e.length;s++)c=e[s],a=t[c],r(a)||(t[c]=n(a,f?c+i:i,o,c))}function u(n,r,i){if(!s||e){var o=s;s=!0;try{t.emit(n,r,i,e)}catch(a){l([a,n,r,i])}s=o}}function d(t,e){if(Object.defineProperty&&Object.keys)try{var n=Object.keys(t);return n.forEach(function(n){Object.defineProperty(e,n,{get:function(){return t[n]},set:function(e){return t[n]=e,e}})}),e}catch(r){l([r])}for(var i in t)c.call(t,i)&&(e[i]=t[i]);return e}function l(e){try{t.emit("internal-error",e)}catch(n){}}return t||(t=i),n.inPlace=f,n.flag=a,n}},{}]},{},["loader",2,12,4,3]);</script>
+<!-- Responsiveness -->
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<!-- Favicon -->
+<link href="https://exoplanets.nasa.gov/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180">
+<link href="https://exoplanets.nasa.gov/favicon-32x32.png" rel="icon" sizes="32x32" type="image/png">
+<link href="https://exoplanets.nasa.gov/favicon-16x16.png" rel="icon" sizes="16x16" type="image/png">
+<link href="https://exoplanets.nasa.gov/manifest.json" rel="manifest">
+<link color="#21428e" href="https://exoplanets.nasa.gov/safari-pinned-tab.svg" rel="mask-icon">
+<meta content="#ffffff" name="theme-color">
+
+<meta name="csrf-param" content="authenticity_token">
+<meta name="csrf-token" content="HbaO7FnXeSSbNc+R0POve+ExVO4YkcpFChfE+BErhbvm2D+8maNBJHPH3bqgQuhV/WWafsG3ggZy5EnDG0pIVQ==">
+<title>Exoplanet Catalog – Exoplanet Exploration: Planets Beyond our Solar System</title>
+<meta content="Exoplanet Exploration: Planets Beyond our Solar System" property="og:site_name">
+<meta content="" name="author">
+<meta content="Exoplanets, exoplanet, extrasolar planets, NASA, National Aeronautics and Space Administration, JPL, Jet Propulsion Laboratory, Earth-like, stars, TRAPPIST, Kepler, TESS" name="keywords">
+<meta content="NASA’s Exoplanet Exploration Program, the search for planets and life beyond our solar system." name="description">
+<meta content="NASA’s Exoplanet Exploration Program, the search for planets and life beyond our solar system." property="og:description">
+<meta content="Exoplanet Catalog - Exoplanet Exploration: Planets Beyond our Solar System" property="og:title">
+<meta content="https://exoplanets.nasa.gov/system/site_config_values/meta_share_images/1_exo.png" property="og:image">
+<meta content="https://exoplanets.nasa.gov/system/site_config_values/meta_share_images/1_exo.png" name="twitter:image">
+<link href="https://exoplanets.nasa.gov/system/site_config_values/meta_share_images/1_exo.png" rel="image_src">
+<meta content="467211304136432" property="fb:app_id">
+
+<link rel="stylesheet" media="all" href="./Scrapper_2_files/public_manifest-ec88e8d31cd1684587b485309e81417466a72d2c6c73d17e8217337252218fac.css">
+<link rel="stylesheet" media="screen" href="./Scrapper_2_files/jquery.fancybox3-d5d81bdfc05a59e4ea72bca1d8b7fcc399bd3b61f7c06af95a8a48795df69d7a.css">
+<link rel="stylesheet" media="screen" href="./Scrapper_2_files/jquery.fancybox-thumbs-63891ea3fd7b7f15621befe5cbdf329cd554b2129f7d69a7ea8d7cedb4c98323.css">
+<link rel="stylesheet" media="print" href="./Scrapper_2_files/print-8803a522fd51ea783ca8530c87ba39c100d36a1ddac554f09c1889388d5866ba.css">
+<script src="./Scrapper_2_files/public_manifest-b198e6cec8a8e7314cf733a37ecc7aedb5fff76ce500ef6402b86785b6b5ac28.js.download"></script><style></style>
+<script src="./Scrapper_2_files/jquery.fancybox3-89448dc7ab925469f12e63b5bd38d209af6a5e121e6ba6a7095fdfa8767e546e.js.download"></script>
+<script src="./Scrapper_2_files/jquery.fancybox-thumbs3-5a51f525b3e3c94a1f3a39a064a2a6279b7ec55d55ecf6b8cb8b8ac654e6eb4b.js.download"></script>
+<script src="./Scrapper_2_files/mb_manifest-6eba4bf4109b2efa4ae9372089644fb027c96a395f0e9334b979ec0a0602c889.js.download"></script>
+
+<script>
+  setTimeout(function(){var a=document.createElement("script");
+  var b=document.getElementsByTagName("script")[0];
+  a.src=document.location.protocol+"//script.crazyegg.com/pages/scripts/0025/5267.js?"+Math.floor(new Date().getTime()/3600000);
+  a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
+</script>
+<style type="text/css">.fancybox-margin{margin-right:17px;}</style></head>
+<!-- if exep section -->
+<body id="exoplanet-catalog" class="nav_is_fixed">
+<div data-react-class="BrowseHappier" data-react-props="{&quot;gt&quot;:1,&quot;lt&quot;:11}" data-react-cache-id="BrowseHappier-0"></div>
+<div id="main_container">
+<div id="site_body">
+<div class="site_header_area">
+<header class="site_header">
+<div class="brand_area">
+<div class="brand1">
+<a class="nasa_logo" href="http://www.nasa.gov/" target="_blank" title="visit nasa.gov">NASA</a>
+</div>
+<div class="brand2">
+<a class="top_logo" href="https://exoplanets.nasa.gov/" title="Home">Exoplanet Exploration</a>
+</div>
+<img alt="" class="print_only print_logo" src="./Scrapper_2_files/logo_nasa_duo_black@2x.png">
+</div>
+
+<a class="visuallyhidden focusable" href="https://exoplanets.nasa.gov/exoplanet-catalog/#page">Skip Navigation</a>
+<div class="right_header_container">
+<a class="menu_button" href="javascript:void(0);" id="menu_button">
+<span class="menu_icon">
+menu
+</span>
+</a>
+<a class="modal_close" id="modal_close">
+<span class="modal_close_icon">
+close modal
+</span>
+</a>
+</div>
+<div class="nav_area">
+<div id="site_nav_container">
+<nav data-react-class="Meganav" data-react-props="{&quot;nav_items&quot;:[{&quot;name&quot;:&quot;Eyes on Exoplanets&quot;,&quot;style&quot;:&quot;icon&quot;,&quot;li_class&quot;:&quot;galaxy_icon&quot;,&quot;target&quot;:&quot;_self&quot;,&quot;link&quot;:&quot;/eyes-on-exoplanets&quot;,&quot;svg_icon_id&quot;:&quot;eox&quot;,&quot;id&quot;:3084,&quot;features&quot;:[{&quot;title&quot;:&quot;Eyes on Exoplanets&quot;,&quot;body&quot;:&quot;&quot;,&quot;image_src&quot;:&quot;/assets/public/missing.png&quot;,&quot;link&quot;:&quot;/eyes-on-exoplanets/&quot;,&quot;target&quot;:&quot;_self&quot;,&quot;categories&quot;:[&quot;featured&quot;]}],&quot;title&quot;:&quot;&quot;,&quot;short_description&quot;:&quot;Explore an interactive, 3D data visualization of all known exoplanets.&quot;},{&quot;name&quot;:&quot;What is an Exoplanet?&quot;,&quot;link&quot;:&quot;/what-is-an-exoplanet/about-exoplanets&quot;,&quot;target&quot;:&quot;_self&quot;,&quot;sections&quot;:[{&quot;items&quot;:[{&quot;name&quot;:&quot;About Exoplanets&quot;,&quot;link&quot;:&quot;/what-is-an-exoplanet/about-exoplanets&quot;,&quot;target&quot;:&quot;_self&quot;,&quot;id&quot;:109},{&quot;name&quot;:&quot;How Do We Find Habitable Planets?&quot;,&quot;link&quot;:&quot;/what-is-an-exoplanet/how-do-we-find-habitable-planets&quot;,&quot;target&quot;:&quot;_self&quot;,&quot;id&quot;:2899},{&quot;name&quot;:&quot;How Do We Find Life?&quot;,&quot;link&quot;:&quot;/what-is-an-exoplanet/how-do-we-find-life&quot;,&quot;target&quot;:&quot;_self&quot;,&quot;id&quot;:2898},{&quot;name&quot;:&quot;Technology&quot;,&quot;link&quot;:&quot;/what-is-an-exoplanet/technology&quot;,&quot;target&quot;:&quot;_self&quot;,&quot;id&quot;:108},{&quot;name&quot;:&quot;People&quot;,&quot;link&quot;:&quot;/what-is-an-exoplanet/people&quot;,&quot;target&quot;:&quot;_self&quot;,&quot;id&quot;:3089}]}],&quot;id&quot;:107,&quot;meganav_style&quot;:&quot;&quot;,&quot;features&quot;:[{&quot;title&quot;:&quot;How Do We Find Life?&quot;,&quot;body&quot;:&quot;Turning up evidence of aliens on far-off exoplanets—be they mats of bacteria or grazing behemoths—will require giant space telescopes, exotic technology and a dose of good luck.&quot;,&quot;image_src&quot;:&quot;/system/basic_html_elements/11468_eso1214a.jpg&quot;,&quot;link&quot;:&quot;/what-is-an-exoplanet/how-do-we-find-life/&quot;,&quot;target&quot;:&quot;_self&quot;,&quot;categories&quot;:[&quot;featured&quot;]}],&quot;short_description&quot;:&quot;Description&quot;,&quot;expanded_meganav&quot;:false},{&quot;name&quot;:&quot;Explore&quot;,&quot;link&quot;:&quot;/alien-worlds&quot;,&quot;target&quot;:&quot;_self&quot;,&quot;sections&quot;:[{&quot;items&quot;:[{&quot;name&quot;:&quot;Exoplanet Travel Bureau&quot;,&quot;link&quot;:&quot;/alien-worlds/exoplanet-travel-bureau&quot;,&quot;target&quot;:&quot;_self&quot;,&quot;id&quot;:19},{&quot;name&quot;:&quot;5 Ways to Find a Planet&quot;,&quot;link&quot;:&quot;/alien-worlds/ways-to-find-a-planet&quot;,&quot;target&quot;:&quot;_self&quot;,&quot;id&quot;:2925},{&quot;name&quot;:&quot;Eyes on Exoplanets &quot;,&quot;link&quot;:&quot;https://exoplanets.nasa.gov/eyes-on-exoplanets/&quot;,&quot;target&quot;:&quot;_blank&quot;,&quot;id&quot;:2932},{&quot;name&quot;:&quot;Strange New Worlds&quot;,&quot;link&quot;:&quot;/alien-worlds/strange-new-worlds&quot;,&quot;target&quot;:&quot;_self&quot;,&quot;id&quot;:10},{&quot;name&quot;:&quot;Historic Timeline&quot;,&quot;link&quot;:&quot;/alien-worlds/historic-timeline&quot;,&quot;target&quot;:&quot;_self&quot;,&quot;id&quot;:7},{&quot;name&quot;:&quot;Kepler Timeline&quot;,&quot;link&quot;:&quot;/alien-worlds/kepler-timeline&quot;,&quot;target&quot;:&quot;_self&quot;,&quot;id&quot;:3031},{&quot;name&quot;:&quot;Universe of Monsters&quot;,&quot;link&quot;:&quot;/alien-worlds/universe-of-monsters&quot;,&quot;target&quot;:&quot;_self&quot;,&quot;id&quot;:3010},{&quot;name&quot;:&quot;Galaxy of Horrors&quot;,&quot;link&quot;:&quot;/alien-worlds/galaxy-of-horrors&quot;,&quot;target&quot;:&quot;_self&quot;,&quot;id&quot;:2950}]}],&quot;id&quot;:8,&quot;meganav_style&quot;:&quot;dark_theme&quot;,&quot;features&quot;:[{&quot;title&quot;:&quot;Strange New Worlds: Star Wars Edition&quot;,&quot;body&quot;:&quot;Explore the worlds of Star Wars in interactive 3D. You&#39;ll fly through real exoplanets closely resembling a fictional galaxy far, far away.&quot;,&quot;image_src&quot;:&quot;/system/basic_html_elements/11505_Kepler452b_SNW.jpg&quot;,&quot;link&quot;:&quot;/alien-worlds/strange-new-worlds/&quot;,&quot;target&quot;:&quot;_self&quot;,&quot;categories&quot;:[&quot;featured&quot;]},{&quot;title&quot;:&quot;5 Ways to Find a Planet&quot;,&quot;body&quot;:&quot;Our animated guide explains how astronomers find and take pictures of planets thousands of light-years away from home.&quot;,&quot;image_src&quot;:&quot;/system/basic_html_elements/11497_betapictoris640.jpg&quot;,&quot;link&quot;:&quot;/interactable/11/&quot;,&quot;target&quot;:&quot;_self&quot;,&quot;categories&quot;:[&quot;featured&quot;]}],&quot;short_description&quot;:&quot;Short Description&quot;,&quot;expanded_meganav&quot;:false},{&quot;name&quot;:&quot;News&quot;,&quot;link&quot;:&quot;/news&quot;,&quot;target&quot;:&quot;_self&quot;,&quot;sections&quot;:[{&quot;items&quot;:[{&quot;name&quot;:&quot;News&quot;,&quot;link&quot;:&quot;/news&quot;,&quot;target&quot;:&quot;_self&quot;,&quot;id&quot;:2896},{&quot;name&quot;:&quot;Blog&quot;,&quot;link&quot;:&quot;/blog&quot;,&quot;target&quot;:&quot;_self&quot;,&quot;id&quot;:2989},{&quot;name&quot;:&quot;Meet the Explorers&quot;,&quot;link&quot;:&quot;/news/?category=184&quot;,&quot;target&quot;:&quot;_self&quot;,&quot;id&quot;:2977}]}],&quot;id&quot;:18,&quot;meganav_style&quot;:&quot;&quot;,&quot;features&quot;:[{&quot;title&quot;:&quot;Seven Earth-sized worlds&quot;,&quot;body&quot;:&quot;Discover the the seven Earth-sized planets orbiting only 40 light-years away with artwork, videos and more.&quot;,&quot;image_src&quot;:&quot;/system/basic_html_elements/11509_Nature_Cover_Art_Pat_article1280.jpg&quot;,&quot;link&quot;:&quot;/trappist1&quot;,&quot;target&quot;:&quot;_self&quot;,&quot;categories&quot;:[&quot;featured&quot;]}],&quot;short_description&quot;:&quot;&quot;,&quot;expanded_meganav&quot;:false},{&quot;name&quot;:&quot;Multimedia&quot;,&quot;link&quot;:&quot;/multimedia/exoplanet-travel-bureau&quot;,&quot;target&quot;:&quot;_self&quot;,&quot;sections&quot;:[{&quot;items&quot;:[{&quot;name&quot;:&quot;Featured&quot;,&quot;link&quot;:&quot;/multimedia/all&quot;,&quot;target&quot;:&quot;_self&quot;,&quot;id&quot;:85},{&quot;name&quot;:&quot;Posters&quot;,&quot;link&quot;:&quot;/multimedia/exoplanet-travel-bureau&quot;,&quot;target&quot;:&quot;_self&quot;,&quot;id&quot;:86},{&quot;name&quot;:&quot;Infographics&quot;,&quot;link&quot;:&quot;/multimedia/infographics&quot;,&quot;target&quot;:&quot;_self&quot;,&quot;id&quot;:88},{&quot;name&quot;:&quot;Science \u0026 Technology&quot;,&quot;link&quot;:&quot;/multimedia/science-technology&quot;,&quot;target&quot;:&quot;_self&quot;,&quot;id&quot;:90},{&quot;name&quot;:&quot;Videos&quot;,&quot;link&quot;:&quot;/multimedia/videos&quot;,&quot;target&quot;:&quot;_self&quot;,&quot;id&quot;:2931},{&quot;name&quot;:&quot;Looking for Life&quot;,&quot;link&quot;:&quot;/multimedia/looking-for-life&quot;,&quot;target&quot;:&quot;_self&quot;,&quot;id&quot;:89}]}],&quot;id&quot;:25,&quot;meganav_style&quot;:&quot;&quot;,&quot;features&quot;:[{&quot;title&quot;:&quot;Travel Bureau Posters&quot;,&quot;body&quot;:&quot;Experience the gravity of a super-Earth or the planet where the nightlife never ends with our free exoplanet posters.&quot;,&quot;image_src&quot;:&quot;/system/basic_html_elements/11478_travel_bureau_hd40307g_th.jpg&quot;,&quot;link&quot;:&quot;/multimedia/exoplanet-travel-bureau/&quot;,&quot;target&quot;:&quot;_self&quot;,&quot;categories&quot;:[&quot;featured&quot;]}],&quot;short_description&quot;:&quot;&quot;,&quot;expanded_meganav&quot;:false},{&quot;name&quot;:&quot;More&quot;,&quot;link&quot;:&quot;/in-progress&quot;,&quot;target&quot;:&quot;_self&quot;,&quot;sections&quot;:[{&quot;items&quot;:[{&quot;name&quot;:&quot;Exoplanet Catalog&quot;,&quot;link&quot;:&quot;/exoplanet-catalog/&quot;,&quot;target&quot;:&quot;_self&quot;,&quot;id&quot;:101},{&quot;name&quot;:&quot;Glossary&quot;,&quot;link&quot;:&quot;/glossary&quot;,&quot;target&quot;:&quot;_self&quot;,&quot;id&quot;:2982},{&quot;name&quot;:&quot;Citizen Science&quot;,&quot;link&quot;:&quot;/citizen-science&quot;,&quot;target&quot;:&quot;_self&quot;,&quot;id&quot;:3123},{&quot;name&quot;:&quot;FAQ&quot;,&quot;link&quot;:&quot;/faq&quot;,&quot;target&quot;:&quot;_self&quot;,&quot;id&quot;:23}]}],&quot;id&quot;:3122,&quot;meganav_style&quot;:&quot;&quot;,&quot;features&quot;:[],&quot;short_description&quot;:&quot;&quot;,&quot;expanded_meganav&quot;:false},{&quot;name&quot;:&quot;For Scientists&quot;,&quot;link&quot;:&quot;/exep&quot;,&quot;target&quot;:&quot;_self&quot;,&quot;sections&quot;:[{&quot;items&quot;:[{&quot;name&quot;:&quot;Exoplanet Exploration Program&quot;,&quot;link&quot;:&quot;https://exoplanets.nasa.gov/exep/&quot;,&quot;target&quot;:&quot;_blank&quot;,&quot;id&quot;:3085},{&quot;name&quot;:&quot;Science Mission Directorate&quot;,&quot;link&quot;:&quot;https://science.nasa.gov&quot;,&quot;target&quot;:&quot;_blank&quot;,&quot;id&quot;:3086}]}],&quot;id&quot;:2949,&quot;meganav_style&quot;:&quot;&quot;,&quot;features&quot;:[],&quot;short_description&quot;:&quot;&quot;,&quot;expanded_meganav&quot;:false}],&quot;search&quot;:true,&quot;search_placeholder&quot;:{&quot;placeholder&quot;:&quot;search&quot;},&quot;no_redirect&quot;:{&quot;name&quot;:&quot;More&quot;}}" data-react-cache-id="Meganav-0" class="site_nav"><span style="visibility: visible;"><ul class="nav"><li class="galaxy_icon"><div class="nav_title" id="li_3084"><a class="main_nav_item icon" href="https://exoplanets.nasa.gov/eyes-on-exoplanets" title="Eyes on Exoplanets"><span>Eyes on Exoplanets</span></a></div><div class="global_subnav_container"><div class="meganav_container  " style="display: none; left: 995.688px; right: 10px;"><div class="nav_item_indicator" style="display: block; left: calc(50% - 15px);"></div><div class="meganav"><div class="sections_container"><h2 class="section_title">Eyes on Exoplanets</h2><div class="section_description">Explore an interactive, 3D data visualization of all known exoplanets.</div><a class="button" href="https://exoplanets.nasa.gov/eyes-on-exoplanets">GO</a></div><div class="detail_container"><div class="feature_info"><div class="single_layout"><a class="image_container" href="https://exoplanets.nasa.gov/eyes-on-exoplanets/" style="background-image: url(&quot;/assets/public/missing.png&quot;);"><div id="3084" class="bottom_description "><div class="category_title">featured</div><div class="content_title">Eyes on Exoplanets</div><div class="description"></div></div></a></div></div></div></div></div></div><div class="gradient_line"></div></li><li class=""><div class="arrow_box"><span class="arrow_down"></span></div><div class="nav_title" id="li_107"><a class="main_nav_item" href="https://exoplanets.nasa.gov/what-is-an-exoplanet/about-exoplanets" target="_self"><span>What is an Exoplanet?</span></a></div><div class="global_subnav_container"><div class="meganav_container   " style="left: 995.688px; display: none; right: 10px;"><div class="nav_item_indicator" style="display: block; left: calc(50% - 15px);"></div><div class="meganav "><div class="sections_container"><ul><li><a class="" href="https://exoplanets.nasa.gov/what-is-an-exoplanet/about-exoplanets" target="_self"><span>About Exoplanets</span></a></li><li><a class="" href="https://exoplanets.nasa.gov/what-is-an-exoplanet/how-do-we-find-habitable-planets" target="_self"><span>How Do We Find Habitable Planets?</span></a></li><li><a class="" href="https://exoplanets.nasa.gov/what-is-an-exoplanet/how-do-we-find-life" target="_self"><span>How Do We Find Life?</span></a></li><li><a class="" href="https://exoplanets.nasa.gov/what-is-an-exoplanet/technology" target="_self"><span>Technology</span></a></li><li><a class="" href="https://exoplanets.nasa.gov/what-is-an-exoplanet/people" target="_self"><span>People</span></a></li></ul></div><div class="detail_container"><div class="feature_info"><div class="single_layout"><a class="image_container" href="https://exoplanets.nasa.gov/what-is-an-exoplanet/how-do-we-find-life/" style="background-image: url(&quot;/system/basic_html_elements/11468_eso1214a.jpg&quot;);"><div id="107" class="bottom_description "><div class="category_title">featured</div><div class="content_title">How Do We Find Life?</div><div class="description">Turning up evidence of aliens on far-off exoplanets—be they mats of bacteria or grazing behemoths—will require giant space telescopes, exotic technology and a dose of good luck.</div></div></a></div></div></div></div></div><ul class="subnav"><div><li><a class="" href="https://exoplanets.nasa.gov/what-is-an-exoplanet/about-exoplanets" target="_self"><span>About Exoplanets</span></a></li><li><a class="" href="https://exoplanets.nasa.gov/what-is-an-exoplanet/how-do-we-find-habitable-planets" target="_self"><span>How Do We Find Habitable Planets?</span></a></li><li><a class="" href="https://exoplanets.nasa.gov/what-is-an-exoplanet/how-do-we-find-life" target="_self"><span>How Do We Find Life?</span></a></li><li><a class="" href="https://exoplanets.nasa.gov/what-is-an-exoplanet/technology" target="_self"><span>Technology</span></a></li><li><a class="" href="https://exoplanets.nasa.gov/what-is-an-exoplanet/people" target="_self"><span>People</span></a></li></div></ul></div><div class="gradient_line"></div></li><li class=""><div class="arrow_box"><span class="arrow_down"></span></div><div class="nav_title" id="li_8"><a class="main_nav_item" href="https://exoplanets.nasa.gov/alien-worlds" target="_self"><span>Explore</span></a></div><div class="global_subnav_container"><div class="meganav_container  dark_theme " style="left: 995.688px; display: none; right: 10px;"><div class="nav_item_indicator" style="display: block; left: calc(50% - 15px);"></div><div class="meganav "><div class="sections_container"><ul><li><a class="" href="https://exoplanets.nasa.gov/alien-worlds/exoplanet-travel-bureau" target="_self"><span>Exoplanet Travel Bureau</span></a></li><li><a class="" href="https://exoplanets.nasa.gov/alien-worlds/ways-to-find-a-planet" target="_self"><span>5 Ways to Find a Planet</span></a></li><li><a class="" href="https://exoplanets.nasa.gov/eyes-on-exoplanets/" target="_blank"><span><span>Eyes on Exoplanets </span><span class="no_wrap">&nbsp;<span class="external_link_icon"><svg display="inline-block" height="11" viewBox="0 0 11 11" width="11" xmlns="http://www.w3.org/2000/svg"><path d="m5.335 4.125 1.485 1.485 2.75-2.75 1.43 1.43v-4.29h-4.29l1.375 1.375zm5.61 1.87-1.045-1.045v4.95h-8.8v-8.8h4.95l-1.1-1.1h-3.85c-.605 0-1.1.495-1.1 1.1v8.8c0 .605.495 1.1 1.1 1.1h8.8c.605 0 1.1-.495 1.1-1.1z" fill="#388fda" transform=""></path></svg></span></span></span></a></li><li><a class="" href="https://exoplanets.nasa.gov/alien-worlds/strange-new-worlds" target="_self"><span>Strange New Worlds</span></a></li><li><a class="" href="https://exoplanets.nasa.gov/alien-worlds/historic-timeline" target="_self"><span>Historic Timeline</span></a></li><li><a class="" href="https://exoplanets.nasa.gov/alien-worlds/kepler-timeline" target="_self"><span>Kepler Timeline</span></a></li><li><a class="" href="https://exoplanets.nasa.gov/alien-worlds/universe-of-monsters" target="_self"><span>Universe of Monsters</span></a></li><li><a class="" href="https://exoplanets.nasa.gov/alien-worlds/galaxy-of-horrors" target="_self"><span>Galaxy of Horrors</span></a></li></ul></div><div class="detail_container"><div class="feature_info"><div class="single_layout"><a class="image_container" href="https://exoplanets.nasa.gov/alien-worlds/strange-new-worlds/" style="background-image: url(&quot;/system/basic_html_elements/11505_Kepler452b_SNW.jpg&quot;);"><div id="8" class="bottom_description tall_description"><div class="category_title">featured</div><div class="content_title">Strange New Worlds: Star Wars Edition</div><div class="description">Explore the worlds of Star Wars in interactive 3D. You'll fly through real exoplanets closely resembling a fictional galaxy far, far away.</div></div></a></div></div></div></div></div><ul class="subnav"><div><li><a class="" href="https://exoplanets.nasa.gov/alien-worlds/exoplanet-travel-bureau" target="_self"><span>Exoplanet Travel Bureau</span></a></li><li><a class="" href="https://exoplanets.nasa.gov/alien-worlds/ways-to-find-a-planet" target="_self"><span>5 Ways to Find a Planet</span></a></li><li><a class="" href="https://exoplanets.nasa.gov/eyes-on-exoplanets/" target="_blank"><span><span>Eyes on Exoplanets </span><span class="no_wrap">&nbsp;<span class="external_link_icon"><svg display="inline-block" height="11" viewBox="0 0 11 11" width="11" xmlns="http://www.w3.org/2000/svg"><path d="m5.335 4.125 1.485 1.485 2.75-2.75 1.43 1.43v-4.29h-4.29l1.375 1.375zm5.61 1.87-1.045-1.045v4.95h-8.8v-8.8h4.95l-1.1-1.1h-3.85c-.605 0-1.1.495-1.1 1.1v8.8c0 .605.495 1.1 1.1 1.1h8.8c.605 0 1.1-.495 1.1-1.1z" fill="#388fda" transform=""></path></svg></span></span></span></a></li><li><a class="" href="https://exoplanets.nasa.gov/alien-worlds/strange-new-worlds" target="_self"><span>Strange New Worlds</span></a></li><li><a class="" href="https://exoplanets.nasa.gov/alien-worlds/historic-timeline" target="_self"><span>Historic Timeline</span></a></li><li><a class="" href="https://exoplanets.nasa.gov/alien-worlds/kepler-timeline" target="_self"><span>Kepler Timeline</span></a></li><li><a class="" href="https://exoplanets.nasa.gov/alien-worlds/universe-of-monsters" target="_self"><span>Universe of Monsters</span></a></li><li><a class="" href="https://exoplanets.nasa.gov/alien-worlds/galaxy-of-horrors" target="_self"><span>Galaxy of Horrors</span></a></li></div></ul></div><div class="gradient_line"></div></li><li class=""><div class="arrow_box"><span class="arrow_down"></span></div><div class="nav_title" id="li_18"><a class="main_nav_item" href="https://exoplanets.nasa.gov/news" target="_self"><span>News</span></a></div><div class="global_subnav_container"><div class="meganav_container   " style="left: 995.688px; display: none; right: 10px;"><div class="nav_item_indicator" style="display: block; left: calc(50% - 15px);"></div><div class="meganav "><div class="sections_container"><ul><li><a class="" href="https://exoplanets.nasa.gov/news" target="_self"><span>News</span></a></li><li><a class="" href="https://exoplanets.nasa.gov/blog" target="_self"><span>Blog</span></a></li><li><a class="" href="https://exoplanets.nasa.gov/news/?category=184" target="_self"><span>Meet the Explorers</span></a></li></ul></div><div class="detail_container"><div class="feature_info"><div class="single_layout"><a class="image_container" href="https://exoplanets.nasa.gov/trappist1" style="background-image: url(&quot;/system/basic_html_elements/11509_Nature_Cover_Art_Pat_article1280.jpg&quot;);"><div id="18" class="bottom_description "><div class="category_title">featured</div><div class="content_title">Seven Earth-sized worlds</div><div class="description">Discover the the seven Earth-sized planets orbiting only 40 light-years away with artwork, videos and more.</div></div></a></div></div></div></div></div><ul class="subnav"><div><li><a class="" href="https://exoplanets.nasa.gov/news" target="_self"><span>News</span></a></li><li><a class="" href="https://exoplanets.nasa.gov/blog" target="_self"><span>Blog</span></a></li><li><a class="" href="https://exoplanets.nasa.gov/news/?category=184" target="_self"><span>Meet the Explorers</span></a></li></div></ul></div><div class="gradient_line"></div></li><li class=""><div class="arrow_box"><span class="arrow_down"></span></div><div class="nav_title" id="li_25"><a class="main_nav_item" href="https://exoplanets.nasa.gov/multimedia/exoplanet-travel-bureau" target="_self"><span>Multimedia</span></a></div><div class="global_subnav_container"><div class="meganav_container   " style="left: 995.688px; display: none; right: 10px;"><div class="nav_item_indicator" style="display: block; left: calc(50% - 15px);"></div><div class="meganav "><div class="sections_container"><ul><li><a class="" href="https://exoplanets.nasa.gov/multimedia/all" target="_self"><span>Featured</span></a></li><li><a class="" href="https://exoplanets.nasa.gov/multimedia/exoplanet-travel-bureau" target="_self"><span>Posters</span></a></li><li><a class="" href="https://exoplanets.nasa.gov/multimedia/infographics" target="_self"><span>Infographics</span></a></li><li><a class="" href="https://exoplanets.nasa.gov/multimedia/science-technology" target="_self"><span>Science &amp; Technology</span></a></li><li><a class="" href="https://exoplanets.nasa.gov/multimedia/videos" target="_self"><span>Videos</span></a></li><li><a class="" href="https://exoplanets.nasa.gov/multimedia/looking-for-life" target="_self"><span>Looking for Life</span></a></li></ul></div><div class="detail_container"><div class="feature_info"><div class="single_layout"><a class="image_container" href="https://exoplanets.nasa.gov/multimedia/exoplanet-travel-bureau/" style="background-image: url(&quot;/system/basic_html_elements/11478_travel_bureau_hd40307g_th.jpg&quot;);"><div id="25" class="bottom_description "><div class="category_title">featured</div><div class="content_title">Travel Bureau Posters</div><div class="description">Experience the gravity of a super-Earth or the planet where the nightlife never ends with our free exoplanet posters.</div></div></a></div></div></div></div></div><ul class="subnav"><div><li><a class="" href="https://exoplanets.nasa.gov/multimedia/all" target="_self"><span>Featured</span></a></li><li><a class="" href="https://exoplanets.nasa.gov/multimedia/exoplanet-travel-bureau" target="_self"><span>Posters</span></a></li><li><a class="" href="https://exoplanets.nasa.gov/multimedia/infographics" target="_self"><span>Infographics</span></a></li><li><a class="" href="https://exoplanets.nasa.gov/multimedia/science-technology" target="_self"><span>Science &amp; Technology</span></a></li><li><a class="" href="https://exoplanets.nasa.gov/multimedia/videos" target="_self"><span>Videos</span></a></li><li><a class="" href="https://exoplanets.nasa.gov/multimedia/looking-for-life" target="_self"><span>Looking for Life</span></a></li></div></ul></div><div class="gradient_line"></div></li><li class=""><div class="arrow_box"><span class="arrow_down"></span></div><div class="nav_title" id="li_3122"><a class="main_nav_item" target="_self"><span>More</span></a></div><div class="global_subnav_container"><div class="meganav_container no_feature  " style="left: 1004.69px; display: none; right: 10px;"><div class="nav_item_indicator" style="display: block; left: calc(50% - 15px);"></div><div class="meganav "><div class="sections_container"><ul><li><a class="" href="https://exoplanets.nasa.gov/exoplanet-catalog/" target="_self"><span>Exoplanet Catalog</span></a></li><li><a class="" href="https://exoplanets.nasa.gov/glossary" target="_self"><span>Glossary</span></a></li><li><a class="" href="https://exoplanets.nasa.gov/citizen-science" target="_self"><span>Citizen Science</span></a></li><li><a class="" href="https://exoplanets.nasa.gov/faq" target="_self"><span>FAQ</span></a></li></ul></div></div></div><ul class="subnav"><div><li><a class="" href="https://exoplanets.nasa.gov/exoplanet-catalog/" target="_self"><span>Exoplanet Catalog</span></a></li><li><a class="" href="https://exoplanets.nasa.gov/glossary" target="_self"><span>Glossary</span></a></li><li><a class="" href="https://exoplanets.nasa.gov/citizen-science" target="_self"><span>Citizen Science</span></a></li><li><a class="" href="https://exoplanets.nasa.gov/faq" target="_self"><span>FAQ</span></a></li></div></ul></div><div class="gradient_line"></div></li><li class=""><div class="arrow_box"><span class="arrow_down"></span></div><div class="nav_title" id="li_2949"><a class="main_nav_item" href="https://exoplanets.nasa.gov/exep" target="_self"><span>For Scientists</span></a></div><div class="global_subnav_container"><div class="meganav_container no_feature  " style="left: 1004.69px; display: none; right: 10px;"><div class="nav_item_indicator" style="display: block; left: calc(50% - 15px);"></div><div class="meganav "><div class="sections_container"><ul><li><a class="" href="https://exoplanets.nasa.gov/exep/" target="_blank"><span><span>Exoplanet Exploration Program</span><span class="no_wrap">&nbsp;<span class="external_link_icon"><svg display="inline-block" height="11" viewBox="0 0 11 11" width="11" xmlns="http://www.w3.org/2000/svg"><path d="m5.335 4.125 1.485 1.485 2.75-2.75 1.43 1.43v-4.29h-4.29l1.375 1.375zm5.61 1.87-1.045-1.045v4.95h-8.8v-8.8h4.95l-1.1-1.1h-3.85c-.605 0-1.1.495-1.1 1.1v8.8c0 .605.495 1.1 1.1 1.1h8.8c.605 0 1.1-.495 1.1-1.1z" fill="#388fda" transform=""></path></svg></span></span></span></a></li><li><a class="" href="https://science.nasa.gov/" target="_blank"><span><span>Science Mission Directorate</span><span class="no_wrap">&nbsp;<span class="external_link_icon"><svg display="inline-block" height="11" viewBox="0 0 11 11" width="11" xmlns="http://www.w3.org/2000/svg"><path d="m5.335 4.125 1.485 1.485 2.75-2.75 1.43 1.43v-4.29h-4.29l1.375 1.375zm5.61 1.87-1.045-1.045v4.95h-8.8v-8.8h4.95l-1.1-1.1h-3.85c-.605 0-1.1.495-1.1 1.1v8.8c0 .605.495 1.1 1.1 1.1h8.8c.605 0 1.1-.495 1.1-1.1z" fill="#388fda" transform=""></path></svg></span></span></span></a></li></ul></div></div></div><ul class="subnav"><div><li><a class="" href="https://exoplanets.nasa.gov/exep/" target="_blank"><span><span>Exoplanet Exploration Program</span><span class="no_wrap">&nbsp;<span class="external_link_icon"><svg display="inline-block" height="11" viewBox="0 0 11 11" width="11" xmlns="http://www.w3.org/2000/svg"><path d="m5.335 4.125 1.485 1.485 2.75-2.75 1.43 1.43v-4.29h-4.29l1.375 1.375zm5.61 1.87-1.045-1.045v4.95h-8.8v-8.8h4.95l-1.1-1.1h-3.85c-.605 0-1.1.495-1.1 1.1v8.8c0 .605.495 1.1 1.1 1.1h8.8c.605 0 1.1-.495 1.1-1.1z" fill="#388fda" transform=""></path></svg></span></span></span></a></li><li><a class="" href="https://science.nasa.gov/" target="_blank"><span><span>Science Mission Directorate</span><span class="no_wrap">&nbsp;<span class="external_link_icon"><svg display="inline-block" height="11" viewBox="0 0 11 11" width="11" xmlns="http://www.w3.org/2000/svg"><path d="m5.335 4.125 1.485 1.485 2.75-2.75 1.43 1.43v-4.29h-4.29l1.375 1.375zm5.61 1.87-1.045-1.045v4.95h-8.8v-8.8h4.95l-1.1-1.1h-3.85c-.605 0-1.1.495-1.1 1.1v8.8c0 .605.495 1.1 1.1 1.1h8.8c.605 0 1.1-.495 1.1-1.1z" fill="#388fda" transform=""></path></svg></span></span></span></a></li></div></ul></div><div class="gradient_line"></div></li></ul><form class="meganav_overlay_search meganav_search" action="https://exoplanets.nasa.gov/search.html"><label for="meganav_search_input" class="search_field_label" style="display: inline-block; text-indent: -9999px; overflow: hidden;">search</label><input id="meganav_search_input" class="search_field " name="q" type="text" placeholder="search" value=""><div class="search_submit"></div></form></span></nav>
+</div>
+</div>
+</header>
+</div>
+<div id="sticky_nav_spacer"></div>
+
+<div id="page">
+<div class="page_cover" style="display: none; opacity: 1;"></div>
+<div class="header_mask"></div>
+
+<section class="nwa_header">
+<div class="custom_banner_container" style="background-image: url(&#39;/assets/nwa_banner.jpg&#39;);">
+<div class="banner_header_overlay">
+<h1 class="article_title">
+Exoplanet Catalog
+</h1>
+</div>
+<div class="gradient_container_bottom"></div>
+</div>
+<section class="dashboard_menu nwa">
+<div class="dashboard_menu_items">
+<a class="dashboard_link" href="https://exoplanets.nasa.gov/exoplanet-discoveries/" onclick="explore_overlay.init(&#39;/exoplanet-discoveries&#39;, &#39;&#39;, &#39;dashboard_overlay lightbox_overlay&#39;); event.preventDefault()">
+<header>
+<h2 class="section_title">
+Exoplanets
+</h2>
+<small>
+Last update:
+October 12, 2020
+</small>
+</header>
+<ul>
+<li class="slide">
+<div class="title">
+4,292
+<div class="dashboard_details_indicator" data_name="Confirmed" style="display: none">i</div>
+</div>
+<div class="subtitle">
+Confirmed
+</div>
+<p class="details">
+Planets that have been validated by two or more discovery methods.
+</p>
+</li>
+<li class="slide">
+<div class="title">
+5,587
+<div class="dashboard_details_indicator" data_name="NASA Candidates" style="display: none">i</div>
+</div>
+<div class="subtitle">
+NASA Candidates
+</div>
+<p class="details">
+NASA mission discoveries that could be planets, but are unconfirmed.
+</p>
+</li>
+<li class="slide">
+<div class="title">
+3,185
+<div class="dashboard_details_indicator" data_name="Planetary Systems" style="display: none">i</div>
+</div>
+<div class="subtitle">
+Planetary Systems
+</div>
+<p class="details">
+The number of stars with confirmed planets.
+</p>
+</li>
+</ul>
+<span class="button">
+Explore Data
+</span>
+</a>
+</div>
+<div class="dashboard_details" data_name="Confirmed" style="display: none">
+<h3 class="dashboard_details__name">
+Confirmed
+</h3>
+<p class="dashboard_details__description">
+Planets that have been validated by two or more discovery methods.
+</p>
+</div>
+<div class="dashboard_details" data_name="NASA Candidates" style="display: none">
+<h3 class="dashboard_details__name">
+NASA Candidates
+</h3>
+<p class="dashboard_details__description">
+NASA mission discoveries that could be planets, but are unconfirmed.
+</p>
+</div>
+<div class="dashboard_details" data_name="Planetary Systems" style="display: none">
+<h3 class="dashboard_details__name">
+Planetary Systems
+</h3>
+<p class="dashboard_details__description">
+The number of stars with confirmed planets.
+</p>
+</div>
+<script>
+  (function() {
+    var buttons = document.querySelectorAll(".dashboard_details_indicator")
+    // We could use the whole item as a button?
+    // var buttons = document.querySelectorAll(".dashboard_menu li")
+    var details = document.querySelectorAll(".dashboard_details")
+    var linkIndicator = document.querySelector(".dashboard_link_indicator")
+    var linkIndicatorMobile = document.querySelector(".dashboard_link_indicator_mobile")
+  
+    // Hide any details elements that might be open
+    function hideAllDetails() {
+      details.forEach(function(item) {
+        item.classList.remove("dashboard_details__active")
+      })
+  
+      // Show the link indicator
+      if (linkIndicator)       linkIndicator.style.visibility       = "visible"
+      if (linkIndicatorMobile) linkIndicatorMobile.style.visibility = "visible"
+    }
+  
+    // If we have all of the elements we expect to have
+    if (buttons.length > 0 && buttons.length === details.length) {
+      console.dir(buttons)
+      var index = 0
+  
+      // Make each of the buttons respond to a press by showing the related details element
+      buttons.forEach(function(button) {
+        var relatedDetails = details[index++]
+  
+        button.addEventListener("click", function(e) {
+  
+          hideAllDetails()
+  
+          // Hide the link indicator, since it’s super close to the details element
+          if (linkIndicator)       linkIndicator.style.visibility       = "hidden"
+          if (linkIndicatorMobile) linkIndicatorMobile.style.visibility = "hidden"
+  
+          // Show the details element
+          relatedDetails.classList.add("dashboard_details__active")
+  
+          // Stop this event from propogating up to the link element,
+          // since that will trigger the full-page overlay
+          if (e) e.stopPropagation()
+          if (e) e.preventDefault()
+        })
+      })
+  
+      // Turn each details element into a giant button that closes it
+      details.forEach(function(next) {
+        next.addEventListener("click", hideAllDetails)
+      })
+    }
+  })()
+</script>
+
+</section>
+</section>
+<section class="site_teaser content_page nwa">
+<div class="grid_layout">
+<div class="text_col">
+<p>
+This continuously updated exoplanetary encyclopedia combines interactive visualizations with detailed data on all known exoplanets. Click on a planet’s name to see 3D model of each planet and system along with vital statistics.
+</p>
+</div>
+<div class="img_col">
+<img alt="Exoplanet Archive" src="./Scrapper_2_files/11452_milky.jpg">
+</div>
+</div>
+</section>
+<section class="search_area content_page module">
+<div data-react-class="NewWorldsAtlas" data-react-props="{&quot;filters&quot;:{&quot;planet_system&quot;:[{&quot;value&quot;:&quot;planet_system-planets-discovered-by-kepler&quot;,&quot;label&quot;:&quot;Planets discovered by Kepler&quot;},{&quot;value&quot;:&quot;planet_system-planets-with-host-stars-visible-to-the-naked-eye&quot;,&quot;label&quot;:&quot;Planets with host stars visible to the naked eye&quot;},{&quot;value&quot;:&quot;planet_system-planets-within-multiple-planet-systems&quot;,&quot;label&quot;:&quot;Planets within multiple planet systems&quot;}],&quot;planet_type&quot;:[{&quot;value&quot;:&quot;planet_type-Gas Giant&quot;,&quot;label&quot;:&quot;Gas Giant&quot;,&quot;targetCount&quot;:1341},{&quot;value&quot;:&quot;planet_type-Neptune-like&quot;,&quot;label&quot;:&quot;Neptune-like&quot;,&quot;targetCount&quot;:1460},{&quot;value&quot;:&quot;planet_type-Super Earth&quot;,&quot;label&quot;:&quot;Super Earth&quot;,&quot;targetCount&quot;:1322},{&quot;value&quot;:&quot;planet_type-Terrestrial&quot;,&quot;label&quot;:&quot;Terrestrial&quot;,&quot;targetCount&quot;:163},{&quot;value&quot;:&quot;planet_type-Unknown&quot;,&quot;label&quot;:&quot;Unknown&quot;,&quot;targetCount&quot;:6}],&quot;discovery_method&quot;:[{&quot;value&quot;:&quot;discovery_method-Astrometry&quot;,&quot;label&quot;:&quot;Astrometry&quot;,&quot;targetCount&quot;:1},{&quot;value&quot;:&quot;discovery_method-Disk Kinematics&quot;,&quot;label&quot;:&quot;Disk Kinematics&quot;,&quot;targetCount&quot;:1},{&quot;value&quot;:&quot;discovery_method-Eclipse Timing Variations&quot;,&quot;label&quot;:&quot;Eclipse Timing Variations&quot;,&quot;targetCount&quot;:16},{&quot;value&quot;:&quot;discovery_method-Imaging&quot;,&quot;label&quot;:&quot;Imaging&quot;,&quot;targetCount&quot;:51},{&quot;value&quot;:&quot;discovery_method-Microlensing&quot;,&quot;label&quot;:&quot;Microlensing&quot;,&quot;targetCount&quot;:101},{&quot;value&quot;:&quot;discovery_method-Orbital Brightness Modulation&quot;,&quot;label&quot;:&quot;Orbital Brightness Modulation&quot;,&quot;targetCount&quot;:6},{&quot;value&quot;:&quot;discovery_method-Pulsar Timing&quot;,&quot;label&quot;:&quot;Pulsar Timing&quot;,&quot;targetCount&quot;:7},{&quot;value&quot;:&quot;discovery_method-Pulsation Timing Variations&quot;,&quot;label&quot;:&quot;Pulsation Timing Variations&quot;,&quot;targetCount&quot;:2},{&quot;value&quot;:&quot;discovery_method-Radial Velocity&quot;,&quot;label&quot;:&quot;Radial Velocity&quot;,&quot;targetCount&quot;:820},{&quot;value&quot;:&quot;discovery_method-Transit&quot;,&quot;label&quot;:&quot;Transit&quot;,&quot;targetCount&quot;:3266},{&quot;value&quot;:&quot;discovery_method-Transit Timing Variations&quot;,&quot;label&quot;:&quot;Transit Timing Variations&quot;,&quot;targetCount&quot;:21}]},&quot;results_columns&quot;:[{&quot;name&quot;:&quot;Name&quot;,&quot;col_name&quot;:&quot;display_name&quot;},{&quot;name&quot;:&quot;Light-years from Earth&quot;,&quot;col_name&quot;:&quot;st_dist&quot;},{&quot;name&quot;:&quot;Planet mass&quot;,&quot;col_name&quot;:&quot;mass_display&quot;},{&quot;name&quot;:&quot;Stellar magnitude&quot;,&quot;col_name&quot;:&quot;st_optmag&quot;},{&quot;name&quot;:&quot;Discovery date&quot;,&quot;col_name&quot;:&quot;discovery_date&quot;}]}" data-react-cache-id="NewWorldsAtlas-0"><div class="grid_layout"><article><div class="filterable_gallery"><header id="page_header"><h1 id="article_title" class="module_title_small">All Discoveries</h1><div id="filter_link_container" class="filter_link_container"><div class="download_links"></div></div></header><hr><div id="modals"></div><div id="primary_column"><div class="pagination_container"><div class="pagination_status"><span class="nonessential">Showing</span><b><span class="start_index"> 101</span>-<span class="end_index">110 </span></b>of<b><span class="total_results"> 4,292 </span></b><span class="nonessential">planets</span></div><div class="pagination_options"><div><div class="pagination_nav"><nav class="pagination"><span class="prev"><a href="javascript:void(0)" rel="prev"></a></span><div class="page_selector"><input class="page_num" placeholder="11" size="2" type="number" min="1" max="430" value="11"> of<span class="total_pages"> 430</span></div><span class="next"><a href="javascript:void(0)" rel="next"></a></span></nav></div></div><div class="options"><div class="page_option_wrapper per_page"><label> Per page</label><select class="options_field" id="per_page" name="per_page"><option value="10" selected="">10</option><option value="25">25</option><option value="50">50</option></select></div></div></div><div class="mobile_options_container"><div class="search_binder"><input class="search_field" id="mobile_search_field" name="keyword" placeholder="Star or planet name" type="search"><input class="search_submit" type="button" value=""></div><div class="mobile_filter_btn"><a class="button" href="javascript:void(0)">Filter</a></div></div><div class="filtering_results"></div></div><section class="data_results grid_gallery"><div class="table_wrapper"><div><div class="datasearch extra_wide_content tbl" id="results"><ul class="header"><li data-sort="display_name" class="current asc">Name</li><li data-sort="st_dist" class="">Light-years from Earth</li><li data-sort="mass_display" class="">Planet mass</li><li data-sort="st_optmag" class="">Stellar magnitude</li><li data-sort="discovery_date" class="">Discovery date</li></ul><ul class="exoplanet"><li><a href="https://exoplanets.nasa.gov/exoplanet-catalog/1240/corot-5-b/">CoRoT-5 b</a></li><li>2951</li><li>0.467 Jupiters</li><li>13.902</li><li>2009</li></ul><ul class="exoplanet"><li><a href="https://exoplanets.nasa.gov/exoplanet-catalog/1241/corot-6-b/">CoRoT-6 b</a></li><li>2144</li><li>2.96 Jupiters</li><li>13.912</li><li>2009</li></ul><ul class="exoplanet"><li><a href="https://exoplanets.nasa.gov/exoplanet-catalog/1242/corot-7-b/">CoRoT-7 b</a></li><li>524</li><li>3.1783 Earths</li><li>11.668</li><li>2009</li></ul><ul class="exoplanet"><li><a href="https://exoplanets.nasa.gov/exoplanet-catalog/4937/corot-7-c/">CoRoT-7 c</a></li><li>524</li><li>8.4 Earths</li><li>11.668</li><li>2009</li></ul><ul class="exoplanet"><li><a href="https://exoplanets.nasa.gov/exoplanet-catalog/1243/corot-8-b/">CoRoT-8 b</a></li><li>1240</li><li>0.22 Jupiters</li><li>14.8</li><li>2010</li></ul><ul class="exoplanet"><li><a href="https://exoplanets.nasa.gov/exoplanet-catalog/1244/corot-9-b/">CoRoT-9 b</a></li><li>1363</li><li>0.84 Jupiters</li><li>13.69</li><li>2009</li></ul><ul class="exoplanet"><li><a href="https://exoplanets.nasa.gov/exoplanet-catalog/7334/corotid-223977153-b/">CoRoTID 223977153 b</a></li><li>1912</li><li>0.15 Jupiters</li><li>13.587</li><li>2017</li></ul><ul class="exoplanet"><li><a href="https://exoplanets.nasa.gov/exoplanet-catalog/7015/ct-chamaleontis-b/">CT Chamaleontis b</a></li><li>538</li><li>17 Jupiters</li><li>11.773</li><li>2007</li></ul><ul class="exoplanet"><li><a href="https://exoplanets.nasa.gov/exoplanet-catalog/7433/de-canun-venaticorum-b/">DE Canun Venaticorum b</a></li><li>100</li><li>12.0293 Jupiters</li><li>11.975</li><li>2018</li></ul><ul class="exoplanet"><li><a href="https://exoplanets.nasa.gov/exoplanet-catalog/6569/denis-p-j0823031-491201-b/">DENIS-P J082303.1-491201 b</a></li><li>68</li><li>28.5 Jupiters</li><li>18.558</li><li>2013</li></ul></div></div></div></section><div class="errors"><div class="date_error" style="display: none;">ERROR: Incorrect date format - please enter date as 'YYYY-MM-DD'.</div></div><footer class="search_footer"><div class="pagination_options "><div><div class="pagination_nav"><nav class="pagination"><span class="prev"><a href="javascript:void(0)" rel="prev"></a></span><div class="page_selector"><input class="page_num" placeholder="11" size="2" type="number" min="1" max="430" value="11"> of<span class="total_pages"> 430</span></div><span class="next"><a href="javascript:void(0)" rel="next"></a></span></nav></div></div><span class="scroll_to_top"><a href="https://exoplanets.nasa.gov/exoplanet-catalog/#">Back to top</a></span></div></footer></div><div id="secondary_column"><aside class="boxed filter_search"><header><h2 class="sidebar_title">Search</h2></header><div class="search_binder"><input class="search_field" id="desktop_search_field" name="keyword" placeholder="Star or planet name" type="search"><input class="search_submit" type="button" value=""></div></aside><aside class="boxed sidebar_filters"><header><h2>Filters</h2><div class="mobile_filter_controls"><a class="clear_filter" href="javascript:void(0)" data-submit-form="true">Clear all</a><a class="button done" href="javascript:void(0)">Done</a></div></header><hr><div class="form_section"><h4>Planet System</h4><div class="expand_section"><div class="arrow_down"></div></div><fieldset class="planet_system expanded facet_section" id="form_section_planet_system"><ul><li class="facetitem ri_checkbox" id="planet_system-planets-discovered-by-kepler"><label><input class="facet_checkbox" type="checkbox" name="planet_system-planets-discovered-by-kepler" value="planet_system-planets-discovered-by-kepler"><span>Planets discovered by Kepler</span></label></li><li class="facetitem ri_checkbox" id="planet_system-planets-with-host-stars-visible-to-the-naked-eye"><label><input class="facet_checkbox" type="checkbox" name="planet_system-planets-with-host-stars-visible-to-the-naked-eye" value="planet_system-planets-with-host-stars-visible-to-the-naked-eye"><span>Planets with host stars visible to the naked eye</span></label></li><li class="facetitem ri_checkbox" id="planet_system-planets-within-multiple-planet-systems"><label><input class="facet_checkbox" type="checkbox" name="planet_system-planets-within-multiple-planet-systems" value="planet_system-planets-within-multiple-planet-systems"><span>Planets within multiple planet systems</span></label></li></ul></fieldset></div><hr><div class="form_section"><h4>Planet Type</h4><div class="expand_section"><div class="arrow_down"></div></div><fieldset class="planet_type expanded facet_section" id="form_section_planet_type"><ul><li class="facetitem ri_checkbox" id="planet_type-gas-giant"><label><input class="facet_checkbox" type="checkbox" name="planet_type-gas-giant" value="planet_type-Gas Giant"><span>Gas Giant</span><span class="facetitemcount target_count">	(1341)</span></label></li><li class="facetitem ri_checkbox" id="planet_type-neptune-like"><label><input class="facet_checkbox" type="checkbox" name="planet_type-neptune-like" value="planet_type-Neptune-like"><span>Neptune-like</span><span class="facetitemcount target_count">	(1460)</span></label></li><li class="facetitem ri_checkbox" id="planet_type-super-earth"><label><input class="facet_checkbox" type="checkbox" name="planet_type-super-earth" value="planet_type-Super Earth"><span>Super Earth</span><span class="facetitemcount target_count">	(1322)</span></label></li><li class="facetitem ri_checkbox" id="planet_type-terrestrial"><label><input class="facet_checkbox" type="checkbox" name="planet_type-terrestrial" value="planet_type-Terrestrial"><span>Terrestrial</span><span class="facetitemcount target_count">	(163)</span></label></li><li class="facetitem ri_checkbox" id="planet_type-unknown"><label><input class="facet_checkbox" type="checkbox" name="planet_type-unknown" value="planet_type-Unknown"><span>Unknown</span><span class="facetitemcount target_count">	(6)</span></label></li></ul></fieldset></div><hr><div class="form_section"><h4>Discovery Method</h4><div class="expand_section"><div class="arrow_down"></div></div><fieldset class="discovery_method expanded facet_section" id="form_section_discovery_method"><ul><li class="facetitem ri_checkbox" id="discovery_method-astrometry"><label><input class="facet_checkbox" type="checkbox" name="discovery_method-astrometry" value="discovery_method-Astrometry"><span>Astrometry</span><span class="facetitemcount target_count">	(1)</span></label></li><li class="facetitem ri_checkbox" id="discovery_method-disk-kinematics"><label><input class="facet_checkbox" type="checkbox" name="discovery_method-disk-kinematics" value="discovery_method-Disk Kinematics"><span>Disk Kinematics</span><span class="facetitemcount target_count">	(1)</span></label></li><li class="facetitem ri_checkbox" id="discovery_method-eclipse-timing-variations"><label><input class="facet_checkbox" type="checkbox" name="discovery_method-eclipse-timing-variations" value="discovery_method-Eclipse Timing Variations"><span>Eclipse Timing Variations</span><span class="facetitemcount target_count">	(16)</span></label></li><li class="facetitem ri_checkbox" id="discovery_method-imaging"><label><input class="facet_checkbox" type="checkbox" name="discovery_method-imaging" value="discovery_method-Imaging"><span>Imaging</span><span class="facetitemcount target_count">	(51)</span></label></li><li class="facetitem ri_checkbox" id="discovery_method-microlensing"><label><input class="facet_checkbox" type="checkbox" name="discovery_method-microlensing" value="discovery_method-Microlensing"><span>Microlensing</span><span class="facetitemcount target_count">	(101)</span></label></li><li class="facetitem ri_checkbox" id="discovery_method-orbital-brightness-modulation"><label><input class="facet_checkbox" type="checkbox" name="discovery_method-orbital-brightness-modulation" value="discovery_method-Orbital Brightness Modulation"><span>Orbital Brightness Modulation</span><span class="facetitemcount target_count">	(6)</span></label></li><li class="facetitem ri_checkbox" id="discovery_method-pulsar-timing"><label><input class="facet_checkbox" type="checkbox" name="discovery_method-pulsar-timing" value="discovery_method-Pulsar Timing"><span>Pulsar Timing</span><span class="facetitemcount target_count">	(7)</span></label></li><li class="facetitem truncatable ri_checkbox" id="discovery_method-pulsation-timing-variations"><label><input class="facet_checkbox" type="checkbox" name="discovery_method-pulsation-timing-variations" value="discovery_method-Pulsation Timing Variations"><span>Pulsation Timing Variations</span><span class="facetitemcount target_count">	(2)</span></label></li><li class="facetitem truncatable ri_checkbox" id="discovery_method-radial-velocity"><label><input class="facet_checkbox" type="checkbox" name="discovery_method-radial-velocity" value="discovery_method-Radial Velocity"><span>Radial Velocity</span><span class="facetitemcount target_count">	(820)</span></label></li><li class="facetitem truncatable ri_checkbox" id="discovery_method-transit"><label><input class="facet_checkbox" type="checkbox" name="discovery_method-transit" value="discovery_method-Transit"><span>Transit</span><span class="facetitemcount target_count">	(3266)</span></label></li><li class="facetitem truncatable ri_checkbox" id="discovery_method-transit-timing-variations"><label><input class="facet_checkbox" type="checkbox" name="discovery_method-transit-timing-variations" value="discovery_method-Transit Timing Variations"><span>Transit Timing Variations</span><span class="facetitemcount target_count">	(21)</span></label></li></ul></fieldset></div></aside></div></div></article></div></div>
+</section>
+
+<section class="module multimedia_teaser">
+<div class="grid_layout page_carousel">
+<header>
+<h1 class="module_title">
+Explore Alien Worlds
+</h1>
+</header>
+<div class="multimedia_module_gallery">
+<script>
+  $(document).ready(function(){
+    $(".explore_items").slick({
+      dots: false,
+      infinite: false,
+      speed: 300,
+      slide: '.explore_items .slide',
+      slidesToShow: 3,
+      slidesToScroll: 3,
+      lazyLoad: 'progressive',
+      centerMode: false,
+      centerPadding: '30px',
+      arrows: true,
+      responsive: [{"breakpoint":953,"settings":{"slidesToShow":2,"slidesToScroll":2,"centerMode":false}},{"breakpoint":480,"settings":{"slidesToShow":1,"slidesToScroll":1,"centerMode":true,"arrows":false}}]
+    });
+  
+    //fix for problems snapping back to position after slide change and responsive change
+    $(".explore_items").on('setPosition', function(event, slick, currentSlide, nextSlide) {
+      var slidesShown = $(".explore_items").slick('slickGetOption', 'slidesToShow');
+      var numberOfSlides = $(".explore_items").find('.slick-slide').length;
+      if (slidesShown === numberOfSlides) {
+        $(".explore_items").find('.slick-track').css('transform', 'translate3d(0px, 0px, 0px)');
+      }
+    });
+  
+    // SHIM: The slick slider doesn’t seem to respond to orientation changes on Android devices
+    // (possibly because there’s a delay while the browser is rendering the page)
+    window.addEventListener('orientationchange', function() {
+      var clock;
+  
+      // Refresh the slider every half second
+      clock = setInterval(function() {
+        // https://github.com/kenwheeler/slick/issues/429#issuecomment-57450725
+        $('.explore_items')[0].slick.refresh();
+      }, 500);
+  
+      // Stop refreshing after 3 seconds
+      setTimeout(function() {
+        clearInterval(clock);
+      }, 3000);
+    });
+  });
+</script>
+<div class="explore_items slick-initialized slick-slider">
+<div aria-live="polite" class="slick-list draggable"><div class="slick-track" style="opacity: 1; width: 1080px; transform: translate3d(0px, 0px, 0px);" role="listbox"><div class="slide slick-slide slick-current slick-active" data-slick-index="0" aria-hidden="false" style="width: 342px;" tabindex="-1" role="option" aria-describedby="slick-slide00">
+<a href="https://exoplanets.nasa.gov/alien-worlds/exoplanet-travel-bureau" tabindex="0">
+<img alt="" src="./Scrapper_2_files/6_153_Kepler_16b_preview.jpg">
+<div class="text_overlay">
+<h2 class="category_title">
+
+</h2>
+<h1 class="media_feature_title">
+Exoplanet Travel Bureau
+</h1>
+</div>
+<div class="gradient_container_bottom"></div>
+<div class="rollover_description">
+<div class="rollover_description_inner">
+<div class="rollover_body">
+This set of travel posters envision a day when the creativity of scientists and engineers will allow us to do things we can only dream of now.
+</div>
+</div>
+<div class="overlay_arrow">
+<img alt="More" src="./Scrapper_2_files/overlay-arrow.png">
+</div>
+</div>
+</a>
+</div><div class="slide slick-slide slick-active" data-slick-index="1" aria-hidden="false" style="width: 342px;" tabindex="-1" role="option" aria-describedby="slick-slide01">
+<a href="https://exoplanets.nasa.gov/alien-worlds/strange-new-worlds" tabindex="0">
+<img alt="" src="./Scrapper_2_files/7_kepler186f.jpg">
+<div class="text_overlay">
+<h2 class="category_title">
+
+</h2>
+<h1 class="media_feature_title">
+Strange New Worlds
+</h1>
+</div>
+<div class="gradient_container_bottom"></div>
+<div class="rollover_description">
+<div class="rollover_description_inner">
+<div class="rollover_body">
+Explore an interactive gallery of some of the most intriguing and exotic planets discovered so far.
+</div>
+</div>
+<div class="overlay_arrow">
+<img alt="More" src="./Scrapper_2_files/overlay-arrow.png">
+</div>
+</div>
+</a>
+</div><div class="slide slick-slide slick-active" data-slick-index="2" aria-hidden="false" style="width: 342px;" tabindex="-1" role="option" aria-describedby="slick-slide02">
+<a href="https://exoplanets.nasa.gov/alien-worlds/historic-timeline" tabindex="0">
+<img alt="A planetary tour through time. The ancients debated the existence of planets beyond our own; now we know of thousands. " src="./Scrapper_2_files/8_340_timeline.jpg">
+<div class="text_overlay">
+<h2 class="category_title">
+
+</h2>
+<h1 class="media_feature_title">
+Historic Timeline
+</h1>
+</div>
+<div class="gradient_container_bottom"></div>
+<div class="rollover_description">
+<div class="rollover_description_inner">
+<div class="rollover_body">
+A planetary tour through time. The ancients debated the existence of planets beyond our own; now we know of thousands. 
+</div>
+</div>
+<div class="overlay_arrow">
+<img alt="More" src="./Scrapper_2_files/overlay-arrow.png">
+</div>
+</div>
+</a>
+</div></div></div>
+
+
+
+
+
+</div>
+
+</div>
+</div>
+</section>
+
+</div>
+<footer id="site_footer">
+<div class="grid_layout">
+<section class="upper_footer">
+<div class="share">
+<h2>Stay Connected</h2>
+<div data-react-class="CherTools" data-react-props="{&quot;follow&quot;:[[&quot;Twitter&quot;,&quot;https://twitter.com/NASAExoplanets&quot;,&quot;/assets/twitter_icon@2x.png&quot;],[&quot;Facebook&quot;,&quot;https://www.facebook.com/NASAExoplanets/&quot;,&quot;/assets/facebook_icon@2x.png&quot;],[&quot;Instagram&quot;,&quot;https://www.instagram.com/nasa/&quot;,&quot;/assets/Instagram_icon@2x.png&quot;],[&quot;RSS&quot;,&quot;https://www.nasa.gov/content/nasa-rss-feeds&quot;,&quot;/assets/rss_icon@2x.png&quot;]]}" data-react-cache-id="CherTools-0"><div class="social_icons paradise_is_here"><div class="twitter icon" style="cursor: pointer;"><img src="./Scrapper_2_files/twitter_icon@2x.png" alt="Follow on Twitter"></div><div class="facebook icon" style="cursor: pointer;"><img src="./Scrapper_2_files/facebook_icon@2x.png" alt="Follow on Facebook"></div><div class="instagram icon" style="cursor: pointer;"><img src="./Scrapper_2_files/Instagram_icon@2x.png" alt="Follow on Instagram"></div><div class="rss icon" style="cursor: pointer;"><img src="./Scrapper_2_files/rss_icon@2x.png" alt="Follow on RSS"></div></div></div>
+
+</div>
+<div class="gradient_line"></div>
+</section>
+<section class="sitemap">
+<div class="sitemap_directory" id="sitemap_directory" style="position: relative; height: 305.574px;">
+<div class="sitemap_block" style="position: absolute; left: 0px; top: 0px;">
+<div class="footer_sitemap_item">
+<h3 class="sitemap_title">
+<a href="https://exoplanets.nasa.gov/what-is-an-exoplanet/about-exoplanets">What is an Exoplanet?</a>
+</h3>
+<ul><li>
+<div class="global_subnav_container">
+<ul class="subnav">
+<li>
+<a href="https://exoplanets.nasa.gov/what-is-an-exoplanet/about-exoplanets" target="_self">About Exoplanets</a>
+</li>
+<li>
+<a href="https://exoplanets.nasa.gov/what-is-an-exoplanet/how-do-we-find-habitable-planets" target="_self">How Do We Find Habitable Planets?</a>
+</li>
+<li>
+<a href="https://exoplanets.nasa.gov/what-is-an-exoplanet/how-do-we-find-life" target="_self">How Do We Find Life?</a>
+</li>
+<li>
+<a href="https://exoplanets.nasa.gov/what-is-an-exoplanet/technology" target="_self">Technology</a>
+</li>
+<li>
+<a href="https://exoplanets.nasa.gov/what-is-an-exoplanet/people" target="_self">People</a>
+</li>
+
+</ul>
+</div>
+</li></ul>
+</div>
+</div>
+<div class="sitemap_block" style="position: absolute; left: 240px; top: 0px;">
+<div class="footer_sitemap_item">
+<h3 class="sitemap_title">
+<a href="https://exoplanets.nasa.gov/alien-worlds">Explore</a>
+</h3>
+<ul><li>
+<div class="global_subnav_container">
+<ul class="subnav">
+<li>
+<a href="https://exoplanets.nasa.gov/alien-worlds/exoplanet-travel-bureau" target="_self">Exoplanet Travel Bureau</a>
+</li>
+<li>
+<a href="https://exoplanets.nasa.gov/alien-worlds/ways-to-find-a-planet" target="_self">5 Ways to Find a Planet</a>
+</li>
+<li>
+<a href="https://exoplanets.nasa.gov/eyes-on-exoplanets/" target="_blank">Eyes on Exoplanets </a>
+</li>
+<li>
+<a href="https://exoplanets.nasa.gov/alien-worlds/strange-new-worlds" target="_self">Strange New Worlds</a>
+</li>
+<li>
+<a href="https://exoplanets.nasa.gov/alien-worlds/historic-timeline" target="_self">Historic Timeline</a>
+</li>
+<li>
+<a href="https://exoplanets.nasa.gov/alien-worlds/kepler-timeline" target="_self">Kepler Timeline</a>
+</li>
+<li>
+<a href="https://exoplanets.nasa.gov/alien-worlds/universe-of-monsters" target="_self">Universe of Monsters</a>
+</li>
+<li>
+<a href="https://exoplanets.nasa.gov/alien-worlds/galaxy-of-horrors" target="_self">Galaxy of Horrors</a>
+</li>
+
+</ul>
+</div>
+</li></ul>
+</div>
+</div>
+<div class="sitemap_block" style="position: absolute; left: 480px; top: 0px;">
+<div class="footer_sitemap_item">
+<h3 class="sitemap_title">
+<a href="https://exoplanets.nasa.gov/news">News</a>
+</h3>
+<ul><li>
+<div class="global_subnav_container">
+<ul class="subnav">
+<li>
+<a href="https://exoplanets.nasa.gov/news" target="_self">News</a>
+</li>
+<li>
+<a href="https://exoplanets.nasa.gov/blog" target="_self">Blog</a>
+</li>
+<li>
+<a href="https://exoplanets.nasa.gov/news/?category=184" target="_self">Meet the Explorers</a>
+</li>
+
+</ul>
+</div>
+</li></ul>
+</div>
+</div>
+<div class="sitemap_block" style="position: absolute; left: 720px; top: 0px;">
+<div class="footer_sitemap_item">
+<h3 class="sitemap_title">
+<a href="https://exoplanets.nasa.gov/multimedia/exoplanet-travel-bureau">Multimedia</a>
+</h3>
+<ul><li>
+<div class="global_subnav_container">
+<ul class="subnav">
+<li>
+<a href="https://exoplanets.nasa.gov/multimedia/all" target="_self">Featured</a>
+</li>
+<li>
+<a href="https://exoplanets.nasa.gov/multimedia/exoplanet-travel-bureau" target="_self">Posters</a>
+</li>
+<li>
+<a href="https://exoplanets.nasa.gov/multimedia/infographics" target="_self">Infographics</a>
+</li>
+<li>
+<a href="https://exoplanets.nasa.gov/multimedia/science-technology" target="_self">Science &amp; Technology</a>
+</li>
+<li>
+<a href="https://exoplanets.nasa.gov/multimedia/videos" target="_self">Videos</a>
+</li>
+<li>
+<a href="https://exoplanets.nasa.gov/multimedia/looking-for-life" target="_self">Looking for Life</a>
+</li>
+
+</ul>
+</div>
+</li></ul>
+</div>
+</div>
+<div class="sitemap_block" style="position: absolute; left: 960px; top: 0px;">
+<div class="footer_sitemap_item">
+<h3 class="sitemap_title">
+More
+</h3>
+<ul><li>
+<div class="global_subnav_container">
+<ul class="subnav">
+<li>
+<a href="https://exoplanets.nasa.gov/exoplanet-catalog/" target="_self">Exoplanet Catalog</a>
+</li>
+<li>
+<a href="https://exoplanets.nasa.gov/glossary" target="_self">Glossary</a>
+</li>
+<li>
+<a href="https://exoplanets.nasa.gov/citizen-science" target="_self">Citizen Science</a>
+</li>
+<li>
+<a href="https://exoplanets.nasa.gov/faq" target="_self">FAQ</a>
+</li>
+
+</ul>
+</div>
+</li></ul>
+</div>
+</div>
+<div class="sitemap_block" style="position: absolute; left: 480px; top: 143px;">
+<div class="footer_sitemap_item">
+<h3 class="sitemap_title">
+<a href="https://exoplanets.nasa.gov/exep">For Scientists</a>
+</h3>
+<ul><li>
+<div class="global_subnav_container">
+<ul class="subnav">
+<li>
+<a href="https://exoplanets.nasa.gov/exep/" target="_blank">Exoplanet Exploration Program</a>
+</li>
+<li>
+<a href="https://science.nasa.gov/" target="_blank">Science Mission Directorate</a>
+</li>
+
+</ul>
+</div>
+</li></ul>
+</div>
+</div>
+
+</div>
+<div class="gradient_line"></div>
+</section>
+<section class="lower_footer">
+<div class="nav_container">
+<nav>
+<ul>
+<li>
+<a href="https://exoplanets.nasa.gov/feedback" target="_self">Feedback</a>
+</li>
+
+</ul>
+</nav>
+</div>
+<div class="credits">
+<div class="footer_brands">
+Managed by the
+<a href="https://exoplanets.nasa.gov/exep/" target="_blank">Exoplanet Exploration Program</a>
+and the
+<a href="https://www.jpl.nasa.gov/" target="_blank">Jet Propulsion Laboratory</a>
+for
+<a href="https://science.nasa.gov/astrophysics" target="_blank">NASA’s Astrophysics Division</a>
+</div>
+<div class="staff">
+<p>
+Science Writer: 
+<a href="mailto:pbrennan@jpl.nasa.gov?subject=%5BExoplanet%20Exploration%3A%20Planets%20Beyond%20our%20Solar%20System%5D">Pat Brennan</a>
+<br>
+Site Editor: 
+<a href="mailto:kristen.l.walbolt@jpl.nasa.gov?subject=%5BExoplanet%20Exploration%3A%20Planets%20Beyond%20our%20Solar%20System%5D">Kristen Walbolt</a>
+<br>
+Manager: 
+Anya Biferno
+<br>
+</p>
+</div>
+</div>
+</section>
+</div>
+</footer>
+
+</div>
+</div>
+<script id="_fed_an_ua_tag" src="./Scrapper_2_files/Universal-Federated-Analytics-Min.js.download" type="text/javascript"></script>
+
+
+
+
+</body></html>
